@@ -120,6 +120,10 @@ export default function App() {
   const [pay, setPay] = useState("upi");
   const [plan, setPlan] = useState([]);
   const [tab, setTab] = useState("home");
+  const [bookedActs, setBookedActs] = useState([]);
+  const [checkInTime, setCheckInTime] = useState("");
+  const [checkOutTime, setCheckOutTime] = useState("");
+  const [dateErr, setDateErr] = useState("");
   const refs = useRef([]);
 
   useEffect(() => { const t = setTimeout(() => setScreen(S.LOGIN), 2500); return () => clearTimeout(t); }, []);
@@ -127,7 +131,28 @@ export default function App() {
   const nav = s => setScreen(s);
   const nights = checkIn && checkOut ? Math.max(1, Math.round((new Date(checkOut) - new Date(checkIn)) / 86400000)) : 1;
   const total = hotel ? hotel.price * nights * Math.max(1, guests) : 0;
-  const grand = Math.round(total * 1.12);
+
+  // Toggle activity in/out of the selection list
+  const toggleAct = (a) => setBookedActs(prev =>
+    prev.find(x => x.name === a.name) ? prev.filter(x => x.name !== a.name) : [...prev, a]
+  );
+  const isActSelected = (a) => bookedActs.some(x => x.name === a.name);
+
+  // Sum all activity prices
+  const parseActPrice = (a) => { const m = a.price.match(/[\d,]+/); return m ? parseInt(m[0].replace(",","")) * guests : 0; };
+  const totalActPrice = bookedActs.reduce((sum, a) => sum + parseActPrice(a), 0);
+  const grand = Math.round(total * 1.12 + totalActPrice);
+
+  // Validate dates & times before proceeding
+  const validateAndProceed = () => {
+    if (!checkIn) { setDateErr("Please select a check-in date."); return; }
+    if (!checkInTime) { setDateErr("Please select a check-in time."); return; }
+    if (!checkOut) { setDateErr("Please select a check-out date."); return; }
+    if (!checkOutTime) { setDateErr("Please select a check-out time."); return; }
+    if (new Date(checkOut) <= new Date(checkIn)) { setDateErr("Check-out date must be after check-in date."); return; }
+    setDateErr("");
+    nav(S.PAYMENT);
+  };
 
   const css = `
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap');
@@ -443,23 +468,42 @@ export default function App() {
                 <div style={{fontSize:12,color:"rgba(255,255,255,.62)",fontFamily:"'Nunito',sans-serif"}}>{beach.famousFor}</div>
               </div>
               <div style={{marginBottom:14}}>
-                <div style={{fontSize:14,fontWeight:800,color:"#fff",marginBottom:11}}>🎯 Activities & Experiences</div>
-                {beach.activities.map(a=>(
-                  <div key={a.name} onClick={()=>{setAct(a);nav(S.ACTIVITY);}} style={{background:C.card,borderRadius:18,padding:13,marginBottom:9,border:`1px solid ${C.border}`,cursor:"pointer",display:"flex",alignItems:"center",gap:11}}>
-                    <div style={{width:46,height:46,borderRadius:14,background:`${beach.tagC}22`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:24,flexShrink:0}}>{a.icon}</div>
-                    <div style={{flex:1}}>
-                      <div style={{display:"flex",justifyContent:"space-between"}}>
-                        <div style={{fontSize:13,fontWeight:800,color:"#fff"}}>{a.name}</div>
-                        <div style={{fontSize:11,color:C.gold,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>⭐ {a.rating}</div>
-                      </div>
-                      <div style={{fontSize:10,color:C.sky,fontFamily:"'Nunito',sans-serif",marginTop:2}}>🕐 {a.timing}</div>
-                      <div style={{fontSize:10,color:C.pink,fontFamily:"'Nunito',sans-serif",marginTop:1}}>💰 {a.price} · ⏱ {a.duration}</div>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:11}}>
+                  <div style={{fontSize:14,fontWeight:800,color:"#fff"}}>🎯 Activities & Experiences</div>
+                  {bookedActs.filter(a=>beach.activities.some(ba=>ba.name===a.name)).length > 0 && (
+                    <div style={{fontSize:10,color:C.pink,fontWeight:800,fontFamily:"'Nunito',sans-serif",background:`${C.pink}18`,borderRadius:10,padding:"3px 9px",border:`1px solid ${C.pink}33`}}>
+                      {bookedActs.filter(a=>beach.activities.some(ba=>ba.name===a.name)).length} selected
                     </div>
-                    <span style={{fontSize:17,color:"rgba(255,255,255,.18)"}}>›</span>
-                  </div>
-                ))}
+                  )}
+                </div>
+                <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:10}}>Tap ✚ to add · tap again to remove · tap card for reviews</div>
+                {beach.activities.map(a=>{
+                  const sel = isActSelected(a);
+                  return (
+                    <div key={a.name} style={{background:sel?`linear-gradient(135deg,${beach.tagC}18,${C.pink}0A)`:C.card,borderRadius:18,padding:13,marginBottom:9,border:`1.5px solid ${sel?beach.tagC+"66":C.border}`,display:"flex",alignItems:"center",gap:11,transition:"all .2s",boxShadow:sel?`0 0 12px ${beach.tagC}22`:"none"}}>
+                      <div onClick={()=>{setAct(a);nav(S.ACTIVITY);}} style={{width:46,height:46,borderRadius:14,background:`${beach.tagC}22`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:24,flexShrink:0,cursor:"pointer"}}>{a.icon}</div>
+                      <div onClick={()=>{setAct(a);nav(S.ACTIVITY);}} style={{flex:1,cursor:"pointer"}}>
+                        <div style={{display:"flex",justifyContent:"space-between"}}>
+                          <div style={{fontSize:13,fontWeight:800,color:"#fff"}}>{a.name}</div>
+                          <div style={{fontSize:11,color:C.gold,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>⭐ {a.rating}</div>
+                        </div>
+                        <div style={{fontSize:10,color:C.sky,fontFamily:"'Nunito',sans-serif",marginTop:2}}>🕐 {a.timing}</div>
+                        <div style={{fontSize:10,color:C.pink,fontFamily:"'Nunito',sans-serif",marginTop:1}}>💰 {a.price} · ⏱ {a.duration}</div>
+                      </div>
+                      <button onClick={()=>toggleAct(a)} style={{width:34,height:34,borderRadius:11,background:sel?beach.tagC:"rgba(255,255,255,.07)",border:`1.5px solid ${sel?beach.tagC:C.border}`,color:sel?C.navy:"rgba(255,255,255,.5)",fontSize:18,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"all .2s",fontWeight:900}}>
+                        {sel ? "✓" : "+"}
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
-              <Btn onClick={()=>nav(S.HOTELS)} bg={C.grad1}>🏨 View Hotels Near This Beach</Btn>
+              {/* Floating CTA */}
+              {bookedActs.filter(a=>beach.activities.some(ba=>ba.name===a.name)).length > 0
+                ? <Btn onClick={()=>nav(S.HOTELS)} bg={C.grad2} color="#fff">
+                    🎯 {bookedActs.filter(a=>beach.activities.some(ba=>ba.name===a.name)).length} Activit{bookedActs.filter(a=>beach.activities.some(ba=>ba.name===a.name)).length>1?"ies":"y"} Selected — Choose Hotel →
+                  </Btn>
+                : <Btn onClick={()=>nav(S.HOTELS)} bg={C.grad1}>🏨 Skip Activities & View Hotels</Btn>
+              }
             </div>
           </div>
         </div>
@@ -505,10 +549,25 @@ export default function App() {
                 </div>
               ))}
               <div style={{marginTop:4}}>
-                {act.canBook
-                  ? <Btn bg={C.grad2} color="#fff">📅 Book This Activity Now</Btn>
-                  : <div style={{background:"rgba(255,255,255,.04)",borderRadius:16,padding:"13px",textAlign:"center",border:`1px solid ${C.border}`}}><div style={{fontSize:12,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>✅ Free entry — no booking required</div></div>
-                }
+                {act.canBook ? (
+                  <div>
+                    <button onClick={()=>toggleAct(act)} style={{width:"100%",padding:"16px",background:isActSelected(act)?C.grad1:C.grad2,border:"none",borderRadius:20,color:isActSelected(act)?C.navy:"#fff",fontSize:15,fontWeight:800,cursor:"pointer",fontFamily:"'Outfit',sans-serif",letterSpacing:.3,marginBottom:10}}>
+                      {isActSelected(act) ? "✓ Added to Trip — Tap to Remove" : "＋ Add to Trip"}
+                    </button>
+                    <Btn bg={C.grad1} onClick={()=>nav(S.HOTELS)}>
+                      {bookedActs.length > 0 ? `🏨 Continue with ${bookedActs.length} Activit${bookedActs.length>1?"ies":"y"} →` : "🏨 Choose a Hotel →"}
+                    </Btn>
+                  </div>
+                ) : (
+                  <div>
+                    <div style={{background:"rgba(255,255,255,.04)",borderRadius:16,padding:"13px",textAlign:"center",border:`1px solid ${C.border}`,marginBottom:10}}>
+                      <div style={{fontSize:12,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>✅ Free entry — no booking required</div>
+                    </div>
+                    <Btn bg={C.grad1} onClick={()=>nav(S.HOTELS)}>
+                      {bookedActs.length > 0 ? `🏨 Continue with ${bookedActs.length} Activit${bookedActs.length>1?"ies":"y"} →` : "🏨 Choose a Hotel →"}
+                    </Btn>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -536,6 +595,22 @@ export default function App() {
             </div>
             <div style={scroll}>
               <div style={{padding:"12px 18px",display:"flex",flexDirection:"column",gap:12}}>
+                {bookedActs.length > 0 && (
+                  <div style={{background:`linear-gradient(135deg,${C.pink}15,${C.sky}0A)`,borderRadius:18,padding:"11px 13px",border:`1px solid ${C.pink}30`}}>
+                    <div style={{fontSize:10,color:C.pink,fontWeight:800,letterSpacing:1,fontFamily:"'Nunito',sans-serif",marginBottom:8}}>🎯 ACTIVITIES SELECTED ({bookedActs.length})</div>
+                    {bookedActs.map(a=>(
+                      <div key={a.name} style={{display:"flex",alignItems:"center",gap:9,marginBottom:6,background:"rgba(255,255,255,.04)",borderRadius:11,padding:"7px 10px"}}>
+                        <span style={{fontSize:16}}>{a.icon}</span>
+                        <div style={{flex:1}}>
+                          <div style={{fontSize:12,fontWeight:800,color:"#fff"}}>{a.name}</div>
+                          <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{a.price} · {a.duration}</div>
+                        </div>
+                        <button onClick={()=>toggleAct(a)} style={{background:"rgba(255,80,80,.12)",border:"none",borderRadius:8,padding:"3px 8px",color:"#FF7070",fontSize:11,cursor:"pointer",fontWeight:700}}>✕</button>
+                      </div>
+                    ))}
+                    <div style={{fontSize:10,color:C.cyan,fontFamily:"'Nunito',sans-serif",marginTop:4,fontWeight:700}}>Total activity cost: ₹{totalActPrice.toLocaleString()}</div>
+                  </div>
+                )}
                 {list.map(h=>(
                   <div key={h.id} onClick={()=>{setHotel(h);nav(S.HOTEL);}} style={{background:C.card,borderRadius:22,overflow:"hidden",border:`1px solid ${C.border}`,cursor:"pointer",boxShadow:"0 4px 20px rgba(0,0,0,.3)"}}>
                     <div style={{height:90,background:`linear-gradient(135deg,${C.sky}1A,${C.pink}1A)`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:44,position:"relative"}}>
@@ -591,15 +666,29 @@ export default function App() {
                 <div><span style={{fontSize:19,fontWeight:900,background:C.grad1,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>₹{hotel.price.toLocaleString()}</span><span style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>/night</span></div>
               </div>
               <div style={{background:C.card,borderRadius:18,padding:14,marginTop:13,border:`1px solid ${C.border}`}}>
-                <div style={{fontSize:11,fontWeight:800,color:C.sky,marginBottom:11}}>📅 SELECT DATES & GUESTS</div>
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:12}}>
-                  {[{l:"Check-in",v:checkIn,set:setCheckIn},{l:"Check-out",v:checkOut,set:setCheckOut}].map(f=>(
+                <div style={{fontSize:11,fontWeight:800,color:C.sky,marginBottom:11}}>📅 SELECT DATES, TIMES & GUESTS</div>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:9}}>
+                  {[{l:"Check-in Date",v:checkIn,set:setCheckIn,req:true},{l:"Check-out Date",v:checkOut,set:setCheckOut,req:true}].map(f=>(
                     <div key={f.l}>
-                      <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:5,letterSpacing:1}}>{f.l.toUpperCase()}</div>
-                      <input type="date" value={f.v} onChange={e=>f.set(e.target.value)} style={{width:"100%",background:"rgba(255,255,255,.06)",border:`1px solid ${C.border}`,borderRadius:12,padding:"9px",color:"#fff",fontSize:12,fontFamily:"'Outfit',sans-serif",outline:"none"}}/>
+                      <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:5,letterSpacing:1}}>{f.l.toUpperCase()} <span style={{color:"#FF6B6B"}}>*</span></div>
+                      <input type="date" value={f.v} onChange={e=>{f.set(e.target.value);setDateErr("");}} style={{width:"100%",background:"rgba(255,255,255,.06)",border:`1px solid ${f.v?"#22D3EE66":C.border}`,borderRadius:12,padding:"9px",color:"#fff",fontSize:12,fontFamily:"'Outfit',sans-serif",outline:"none"}}/>
                     </div>
                   ))}
                 </div>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:12}}>
+                  {[{l:"Check-in Time",v:checkInTime,set:setCheckInTime},{l:"Check-out Time",v:checkOutTime,set:setCheckOutTime}].map(f=>(
+                    <div key={f.l}>
+                      <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:5,letterSpacing:1}}>{f.l.toUpperCase()} <span style={{color:"#FF6B6B"}}>*</span></div>
+                      <input type="time" value={f.v} onChange={e=>{f.set(e.target.value);setDateErr("");}} style={{width:"100%",background:"rgba(255,255,255,.06)",border:`1px solid ${f.v?"#22D3EE66":C.border}`,borderRadius:12,padding:"9px",color:"#fff",fontSize:12,fontFamily:"'Outfit',sans-serif",outline:"none",colorScheme:"dark"}}/>
+                    </div>
+                  ))}
+                </div>
+                {dateErr && (
+                  <div style={{background:"rgba(255,80,80,.1)",border:"1px solid rgba(255,80,80,.3)",borderRadius:10,padding:"8px 11px",marginBottom:10,display:"flex",gap:7,alignItems:"center"}}>
+                    <span style={{fontSize:13}}>⚠️</span>
+                    <div style={{fontSize:11,color:"#FF8080",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>{dateErr}</div>
+                  </div>
+                )}
                 <div style={{display:"flex",alignItems:"center",gap:11}}>
                   <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Guests:</div>
                   <button onClick={()=>setGuests(Math.max(1,guests-1))} style={{width:32,height:32,borderRadius:10,background:"rgba(255,255,255,.07)",border:"none",color:"#fff",fontSize:16,cursor:"pointer"}}>−</button>
@@ -610,18 +699,29 @@ export default function App() {
               </div>
               <div style={{background:"rgba(34,211,238,.06)",borderRadius:18,padding:13,marginTop:11,border:`1px solid ${C.sky}22`}}>
                 <div style={{fontSize:11,fontWeight:800,color:C.cyan,marginBottom:9}}>💰 PRICE SUMMARY</div>
-                {[{l:`₹${hotel.price.toLocaleString()} × ${nights} nights`,v:`₹${(hotel.price*nights).toLocaleString()}`},{l:"Taxes & Fees (12%)",v:`₹${Math.round(total*.12).toLocaleString()}`}].map(r=>(
-                  <div key={r.l} style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
-                    <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{r.l}</div>
-                    <div style={{fontSize:11,color:"rgba(255,255,255,.75)",fontFamily:"'Nunito',sans-serif"}}>{r.v}</div>
-                  </div>
-                ))}
+                <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
+                  <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",flex:1,paddingRight:8}}>Hotel: ₹{hotel.price.toLocaleString()} × {nights} nights × {guests} guests</div>
+                  <div style={{fontSize:11,color:"rgba(255,255,255,.75)",fontFamily:"'Nunito',sans-serif",flexShrink:0}}>₹{total.toLocaleString()}</div>
+                </div>
+                {bookedActs.length > 0 && bookedActs.map(a => {
+                  const ap = parseActPrice(a);
+                  return (
+                    <div key={a.name} style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
+                      <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",flex:1,paddingRight:8}}>{a.icon} {a.name} ({guests} guests)</div>
+                      <div style={{fontSize:11,color:"rgba(255,255,255,.75)",fontFamily:"'Nunito',sans-serif",flexShrink:0}}>{ap > 0 ? `₹${ap.toLocaleString()}` : "Free ✓"}</div>
+                    </div>
+                  );
+                })}
+                <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
+                  <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Taxes & Fees (12% on hotel)</div>
+                  <div style={{fontSize:11,color:"rgba(255,255,255,.75)",fontFamily:"'Nunito',sans-serif"}}>₹{Math.round(total*.12).toLocaleString()}</div>
+                </div>
                 <div style={{borderTop:`1px solid rgba(255,255,255,.07)`,paddingTop:8,display:"flex",justifyContent:"space-between"}}>
                   <div style={{fontSize:13,fontWeight:800,color:"#fff"}}>Total</div>
                   <div style={{fontSize:18,fontWeight:900,background:C.grad1,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>₹{grand.toLocaleString()}</div>
                 </div>
               </div>
-              <div style={{marginTop:13}}><Btn onClick={()=>nav(S.PAYMENT)} bg={C.grad1}>Proceed to Payment →</Btn></div>
+              <div style={{marginTop:13}}><Btn onClick={validateAndProceed} bg={C.grad1}>Proceed to Payment →</Btn></div>
             </div>
           </div>
         </div>
@@ -653,7 +753,24 @@ export default function App() {
                 <div style={{background:C.card,borderRadius:20,padding:13,marginBottom:13,border:`1px solid ${C.border}`}}>
                   <div style={{fontSize:10,color:C.sky,fontWeight:800,marginBottom:7,letterSpacing:1}}>BOOKING SUMMARY</div>
                   <div style={{fontSize:14,fontWeight:800,color:"#fff"}}>{hotel?.name}</div>
-                  <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:3}}>📍 Near {beach?.name} · {nights} nights · {guests} guests</div>
+                  <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:3}}>📍 Near {beach?.name} · {checkIn} {checkInTime} → {checkOut} {checkOutTime} · {nights} nights · {guests} guests</div>
+                  {bookedActs.length > 0 && (
+                    <div style={{marginTop:8}}>
+                      {bookedActs.map(a => {
+                        const ap = parseActPrice(a);
+                        return (
+                          <div key={a.name} style={{display:"flex",alignItems:"center",gap:7,marginBottom:5,padding:"6px 9px",background:`${C.pink}0E`,borderRadius:10,border:`1px solid ${C.pink}20`}}>
+                            <span style={{fontSize:14}}>{a.icon}</span>
+                            <div style={{flex:1}}>
+                              <div style={{fontSize:11,fontWeight:800,color:"#fff"}}>{a.name}</div>
+                              <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{a.price} · {guests} guests</div>
+                            </div>
+                            <div style={{fontSize:11,fontWeight:800,color:ap>0?C.pink:C.sky}}>{ap>0?`₹${ap.toLocaleString()}`:"Free ✓"}</div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                   <div style={{display:"flex",justifyContent:"space-between",borderTop:`1px solid rgba(255,255,255,.07)`,paddingTop:9,marginTop:9}}>
                     <div style={{fontSize:12,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Total Amount</div>
                     <div style={{fontSize:19,fontWeight:900,background:C.grad1,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>₹{grand.toLocaleString()}</div>
@@ -695,7 +812,19 @@ export default function App() {
             <div style={{fontSize:23,fontWeight:900,color:"#fff",textAlign:"center",animation:"fadeUp .5s ease .2s both"}}>Booking Confirmed!</div>
             <div style={{fontSize:12,color:C.sub,fontFamily:"'Nunito',sans-serif",textAlign:"center",marginTop:7,lineHeight:1.65,animation:"fadeUp .5s ease .3s both"}}>Your stay at <span style={{color:C.sky,fontWeight:800}}>{hotel?.name}</span><br/>near {beach?.name} is all set! 🌊</div>
             <div style={{background:C.card,borderRadius:22,padding:16,marginTop:18,width:"100%",border:`1px solid ${C.border}`,animation:"fadeUp .5s ease .4s both"}}>
-              {[{l:"Booking ID",v:"#GUJ"+Math.floor(Math.random()*90000+10000)},{l:"Hotel",v:hotel?.name},{l:"Beach",v:beach?.name},{l:"Guests",v:guests+" guests"},{l:"Duration",v:nights+" nights"},{l:"Amount Paid",v:"₹"+grand.toLocaleString()},{l:"Payment Via",v:pay.toUpperCase()}].map(r=>(
+              {[
+                {l:"Booking ID",v:"#GUJ"+Math.floor(Math.random()*90000+10000)},
+                {l:"Hotel",v:hotel?.name},
+                {l:"Beach",v:beach?.name},
+                {l:"Check-in",v:`${checkIn} at ${checkInTime}`},
+                {l:"Check-out",v:`${checkOut} at ${checkOutTime}`},
+                {l:"Guests",v:guests+" guests"},
+                {l:"Duration",v:nights+" nights"},
+                ...(bookedActs.length > 0 ? [{l:"Activities",v:bookedActs.map(a=>a.icon+" "+a.name).join(", ")}] : []),
+                ...(totalActPrice > 0 ? [{l:"Activity Cost",v:`₹${totalActPrice.toLocaleString()}`}] : []),
+                {l:"Amount Paid",v:"₹"+grand.toLocaleString()},
+                {l:"Payment Via",v:pay.toUpperCase()},
+              ].map(r=>(
                 <div key={r.l} style={{display:"flex",justifyContent:"space-between",marginBottom:7,paddingBottom:7,borderBottom:"1px solid rgba(255,255,255,.05)"}}>
                   <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{r.l}</div>
                   <div style={{fontSize:11,color:"#fff",fontWeight:700,fontFamily:"'Nunito',sans-serif",maxWidth:160,textAlign:"right"}}>{r.v}</div>
