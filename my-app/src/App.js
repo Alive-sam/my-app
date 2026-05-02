@@ -14,13 +14,19 @@ const S = {
   SPLASH:"splash",LOGIN:"login",OTP:"otp",USER_INFO:"userinfo",
   HOME:"home",BEACHES:"beaches",BEACH:"beach",ACTIVITY:"activity",
   HOTELS:"hotels",HOTEL:"hotel",PAYMENT:"payment",SUCCESS:"success",
-  PLANNER:"planner",PROFILE:"profile",SUPPORT:"support",
+  PLANNER:"planner",PROFILE:"profile",SUPPORT:"support",MAP:"map",
 };
 const beaches = [
-  { id:1, name:"Mandvi Beach", loc:"Kutch, Gujarat", dist:420, tag:"Most Popular", tagC:"#22D3EE", rating:4.7, weather:"29°C ☀️", bestTime:"Oct–Mar",
+  { id:1, lat:22.8270, lon:69.3500, name:"Mandvi Beach", loc:"Kutch, Gujarat", dist:420, tag:"Most Popular", tagC:"#22D3EE", rating:4.7, weather:"29°C ☀️", bestTime:"Oct–Mar",
     famousFor:"Windmills, Vijay Vilas Palace, camel rides",
     desc:"One of Gujarat's most iconic beaches — white sand, spinning windmills and the palatial Vijay Vilas estate just minutes away. Sunsets here are legendary.",
     img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80",
+    nearby:[
+      {name:"Vijay Vilas Palace",lat:22.8353,lon:69.3218,icon:"🏰",cat:"Heritage",dist:"4 km",desc:"Magnificent royal summer palace with Indo-Saracenic architecture & private beach.",rating:4.8},
+      {name:"Kutch Museum",lat:23.0347,lon:69.8656,icon:"🏛️",cat:"Museum",dist:"60 km",desc:"Oldest museum in Gujarat showcasing Kutchi art, textiles & Indus Valley artefacts.",rating:4.4},
+      {name:"Wind Farm Mandvi",lat:22.8500,lon:69.3800,icon:"⚡",cat:"Landmark",dist:"2 km",desc:"Iconic row of windmills along the coastline — best at sunrise.",rating:4.5},
+      {name:"Rukmavati Bridge",lat:22.8270,lon:69.3600,icon:"🌉",cat:"Landmark",dist:"1 km",desc:"Historic 400-year-old arched stone bridge, perfect photography spot.",rating:4.3},
+    ],
     activities:[
       {name:"Camel Riding",icon:"🐪",timing:"6 AM – 7 PM",price:"₹200/person",duration:"30 min",rating:4.6,canBook:true,
        reviews:[{u:"Rahul M.",r:5,c:"Best camel experience! So scenic.",d:"Jan 2025"},{u:"Sneha P.",r:4,c:"Fun for families, a bit crowded.",d:"Dec 2024"},{u:"Amir K.",r:5,c:"Worth every rupee!",d:"Nov 2024"}]},
@@ -31,10 +37,16 @@ const beaches = [
       {name:"Boat Ride",icon:"⛵",timing:"8 AM – 6 PM",price:"₹300/person",duration:"45 min",rating:4.3,canBook:true,
        reviews:[{u:"Riya G.",r:4,c:"Peaceful and beautiful.",d:"Jan 2025"}]},
     ]},
-  { id:2, name:"Dwarka Beach", loc:"Devbhoomi Dwarka, Gujarat", dist:450, tag:"Spiritual", tagC:"#F472B6", rating:4.8, weather:"27°C 🌤️", bestTime:"Nov–Feb",
+  { id:2, lat:22.2381, lon:68.9677, name:"Dwarka Beach", loc:"Devbhoomi Dwarka, Gujarat", dist:450, tag:"Spiritual", tagC:"#F472B6", rating:4.8, weather:"27°C 🌤️", bestTime:"Nov–Feb",
     famousFor:"Dwarkadhish Temple, first Jyotirlinga, dolphins",
     desc:"A sacred coastline shadowed by the ancient Dwarkadhish Temple. The sea glows golden at dusk while temple bells echo across the shore.",
     img:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80",
+    nearby:[
+      {name:"Dwarkadhish Temple",lat:22.2378,lon:68.9674,icon:"🛕",cat:"Temple",dist:"0.2 km",desc:"One of the Char Dham pilgrimage sites. Magnificent 5-storey temple dating to the 16th century.",rating:4.9},
+      {name:"Bet Dwarka Island",lat:22.4609,lon:69.0075,icon:"🏝️",cat:"Island",dist:"30 km",desc:"Sacred island reached by ferry — believed to be Krishna's actual dwelling place.",rating:4.7},
+      {name:"Nageshwar Jyotirlinga",lat:22.3373,lon:69.0809,icon:"🪔",cat:"Temple",dist:"16 km",desc:"One of the 12 Jyotirlingas of Lord Shiva, with a giant 25-metre Shiva statue.",rating:4.8},
+      {name:"Gomti Ghat",lat:22.2390,lon:68.9680,icon:"🌊",cat:"Ghat",dist:"0.5 km",desc:"Sacred river ghat where Gomti meets Arabian Sea — ideal for sunrise rituals.",rating:4.5},
+    ],
     activities:[
       {name:"Temple Darshan",icon:"🛕",timing:"6 AM–12 PM, 5–9 PM",price:"Free",duration:"1–2 hours",rating:4.9,canBook:false,
        reviews:[{u:"Nita V.",r:5,c:"Spiritual bliss. Must visit.",d:"Jan 2025"},{u:"Kamal J.",r:5,c:"Divine experience.",d:"Dec 2024"}]},
@@ -43,10 +55,16 @@ const beaches = [
       {name:"Snorkeling",icon:"🤿",timing:"9 AM – 5 PM",price:"₹1200/person",duration:"1.5 hours",rating:4.5,canBook:true,
        reviews:[{u:"Ankita R.",r:5,c:"Crystal clear water!",d:"Nov 2024"}]},
     ]},
-  { id:3, name:"Diu Beach", loc:"Diu (Union Territory)", dist:368, tag:"Adventure", tagC:"#06FFF0", rating:4.6, weather:"30°C ☀️", bestTime:"Oct–Mar",
+  { id:3, lat:20.7141, lon:70.9880, name:"Diu Beach", loc:"Diu (Union Territory)", dist:368, tag:"Adventure", tagC:"#06FFF0", rating:4.6, weather:"30°C ☀️", bestTime:"Oct–Mar",
     famousFor:"Portuguese forts, Nagoa Beach, water sports",
     desc:"A former Portuguese colony with cobblestone lanes and crystal-clear Nagoa Beach. The best water sports hub in western India.",
     img:"https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=600&q=80",
+    nearby:[
+      {name:"Diu Fort",lat:20.7170,lon:70.9920,icon:"🏰",cat:"Heritage",dist:"1 km",desc:"Massive 16th-century Portuguese sea fort with bastions, dungeons & panoramic views.",rating:4.7},
+      {name:"St. Paul's Church",lat:20.7146,lon:70.9876,icon:"⛪",cat:"Heritage",dist:"0.3 km",desc:"Exquisite 1600s Portuguese baroque church — finest example of its kind in India.",rating:4.6},
+      {name:"Naida Caves",lat:20.7160,lon:70.9860,icon:"🕳️",cat:"Nature",dist:"0.8 km",desc:"Labyrinthine lattice caves formed by quarrying — spectacular light play inside.",rating:4.4},
+      {name:"INS Khukri Memorial",lat:20.7155,lon:70.9900,icon:"⚓",cat:"Memorial",dist:"0.5 km",desc:"War memorial for the first Indian Navy ship sunk in battle — poignant & scenic.",rating:4.5},
+    ],
     activities:[
       {name:"Scuba Diving",icon:"🤿",timing:"8 AM – 4 PM",price:"₹2500/person",duration:"3 hours",rating:4.8,canBook:true,
        reviews:[{u:"Vikram A.",r:5,c:"Incredible underwater world.",d:"Mar 2025"},{u:"Sara N.",r:5,c:"Professional instructors.",d:"Feb 2025"}]},
@@ -57,10 +75,16 @@ const beaches = [
       {name:"Jet Skiing",icon:"🏍️",timing:"9 AM – 5 PM",price:"₹800/person",duration:"15 min",rating:4.4,canBook:true,
        reviews:[{u:"Mansi V.",r:4,c:"Fast and so much fun!",d:"Jan 2025"}]},
     ]},
-  { id:4, name:"Somnath Beach", loc:"Gir Somnath, Gujarat", dist:402, tag:"Sacred", tagC:"#FBBF24", rating:4.9, weather:"28°C ☀️", bestTime:"Oct–Feb",
+  { id:4, lat:20.9003, lon:70.3868, name:"Somnath Beach", loc:"Gir Somnath, Gujarat", dist:402, tag:"Sacred", tagC:"#FBBF24", rating:4.9, weather:"28°C ☀️", bestTime:"Oct–Feb",
     famousFor:"Somnath Jyotirlinga, ancient history, evening aarti",
     desc:"Where the ancient Somnath temple meets the Arabian Sea. Watching waves crash at the foot of the first Jyotirlinga during aarti moves the soul.",
     img:"https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=600&q=80",
+    nearby:[
+      {name:"Somnath Temple",lat:20.8880,lon:70.4015,icon:"🛕",cat:"Temple",dist:"1 km",desc:"First of 12 Jyotirlingas — rebuilt 7 times, destroyed & resurrected over millennia. A must-visit.",rating:5.0},
+      {name:"Gir National Park",lat:21.1241,lon:70.8241,icon:"🦁",cat:"Wildlife",dist:"65 km",desc:"World's only habitat of the Asiatic lion. Jeep safaris available Oct–June.",rating:4.9},
+      {name:"Bhalka Tirth",lat:20.9052,lon:70.3901,icon:"🪔",cat:"Temple",dist:"0.5 km",desc:"Sacred spot where Lord Krishna is believed to have been accidentally shot by a hunter.",rating:4.6},
+      {name:"Triveni Sangam",lat:20.9010,lon:70.3875,icon:"🌊",cat:"Ghat",dist:"0.3 km",desc:"Confluence of Hiran, Kapila & Saraswati rivers meeting the sea — spiritually significant.",rating:4.5},
+    ],
     activities:[
       {name:"Evening Aarti",icon:"🪔",timing:"7:00 PM daily",price:"Free",duration:"45 min",rating:5.0,canBook:false,
        reviews:[{u:"Kavita S.",r:5,c:"Goosebumps. Truly divine.",d:"Feb 2025"},{u:"Mohan L.",r:5,c:"Life-changing experience.",d:"Jan 2025"}]},
@@ -69,10 +93,16 @@ const beaches = [
       {name:"Sound & Light Show",icon:"💡",timing:"8 PM daily",price:"₹50/person",duration:"1 hour",rating:4.7,canBook:true,
        reviews:[{u:"Ajay M.",r:5,c:"History comes alive!",d:"Dec 2024"}]},
     ]},
-  { id:5, name:"Tithal Beach", loc:"Valsad, Gujarat", dist:340, tag:"Hidden Gem", tagC:"#A78BFA", rating:4.4, weather:"31°C 🌥️", bestTime:"Nov–Jan",
+  { id:5, lat:20.4843, lon:72.8328, name:"Tithal Beach", loc:"Valsad, Gujarat", dist:340, tag:"Hidden Gem", tagC:"#A78BFA", rating:4.4, weather:"31°C 🌥️", bestTime:"Nov–Jan",
     famousFor:"Rare black sand, Swaminarayan Temple, serene vibe",
     desc:"Gujarat's best-kept secret — a beach with rare black volcanic sand stretching miles in peaceful solitude. The Swaminarayan mandir glows beautifully at dusk.",
     img:"https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=600&q=80",
+    nearby:[
+      {name:"Swaminarayan Temple Valsad",lat:20.5980,lon:72.9280,icon:"🛕",cat:"Temple",dist:"14 km",desc:"Beautiful white marble Swaminarayan temple glowing at dusk — serene & photogenic.",rating:4.7},
+      {name:"Daman",lat:20.4147,lon:72.8320,icon:"🏖️",cat:"Town",dist:"8 km",desc:"Former Portuguese enclave with sea forts, churches & tax-free shopping — great day trip.",rating:4.4},
+      {name:"Wilson Hills",lat:20.7560,lon:73.5530,icon:"⛰️",cat:"Nature",dist:"60 km",desc:"Cool misty hill station with tribal villages, waterfalls & valleys of the Dharampur range.",rating:4.5},
+      {name:"Saputara Hill Station",lat:20.5720,lon:73.7450,icon:"🌿",cat:"Nature",dist:"80 km",desc:"Gujarat's only hill station — tribal art, rose garden, lake & panoramic sunrise views.",rating:4.6},
+    ],
     activities:[
       {name:"Black Sand Walk",icon:"🚶",timing:"All day",price:"Free",duration:"1 hour",rating:4.6,canBook:false,
        reviews:[{u:"Nisha G.",r:5,c:"Unique and incredibly peaceful.",d:"Jan 2025"}]},
@@ -81,10 +111,16 @@ const beaches = [
       {name:"Local Seafood Tour",icon:"🦐",timing:"11 AM – 3 PM",price:"₹400/person",duration:"2 hours",rating:4.3,canBook:true,
        reviews:[{u:"Hina P.",r:4,c:"Fresh catch, great flavors.",d:"Nov 2024"}]},
     ]},
-  { id:6, name:"Gopnath Beach", loc:"Bhavnagar, Gujarat", dist:220, tag:"Offbeat", tagC:"#34D399", rating:4.3, weather:"28°C ☀️", bestTime:"Oct–Feb",
+  { id:6, lat:21.3180, lon:72.1500, name:"Gopnath Beach", loc:"Bhavnagar, Gujarat", dist:220, tag:"Offbeat", tagC:"#34D399", rating:4.3, weather:"28°C ☀️", bestTime:"Oct–Feb",
     famousFor:"Rocky coastline, ancient cave temple, zero light pollution",
     desc:"A raw, unspoiled stretch with dramatic rock formations and the ancient Gopnath Mahadev cave temple. Night skies here are absolutely breathtaking.",
     img:"https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80",
+    nearby:[
+      {name:"Gopnath Mahadev Temple",lat:21.3190,lon:72.1490,icon:"🛕",cat:"Temple",dist:"0.1 km",desc:"Ancient cave temple of Lord Shiva carved into sea-facing rocks — divine & dramatic.",rating:4.8},
+      {name:"Alang Ship Breaking Yard",lat:21.4071,lon:72.1980,icon:"🚢",cat:"Industrial",dist:"10 km",desc:"World's largest ship recycling yard — unique industrial tourism destination.",rating:4.2},
+      {name:"Velavadar Blackbuck Park",lat:22.0230,lon:72.1560,icon:"🦌",cat:"Wildlife",dist:"45 km",desc:"Home to the fastest Indian antelope — the blackbuck. Also spot wolves & raptors.",rating:4.7},
+      {name:"Bhavnagar Old City",lat:21.7645,lon:72.1519,icon:"🏙️",cat:"Heritage",dist:"55 km",desc:"Victorian-era heritage buildings, bazaars & the Barton Museum of Bhavnagar.",rating:4.3},
+    ],
     activities:[
       {name:"Stargazing Night",icon:"🌟",timing:"8 PM – 11 PM",price:"₹300/person",duration:"3 hours",rating:4.8,canBook:true,
        reviews:[{u:"Aryan S.",r:5,c:"Best stargazing in Gujarat!",d:"Jan 2025"},{u:"Jiya M.",r:5,c:"Milky way clearly visible!",d:"Dec 2024"}]},
@@ -117,25 +153,91 @@ export default function App() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(2);
+  const [rooms, setRooms] = useState(1);
   const [pay, setPay] = useState("upi");
   const [plan, setPlan] = useState([]);
   const [tab, setTab] = useState("home");
-  const [bookedActs, setBookedActs] = useState([]);
+  const [bookedActsByBeach, setBookedActsByBeach] = useState({});
   const [checkInTime, setCheckInTime] = useState("");
   const [checkOutTime, setCheckOutTime] = useState("");
   const [dateErr, setDateErr] = useState("");
   const refs = useRef([]);
 
+  // ── WEATHER STATE ──────────────────────────────────────────────────────────
+  const [weatherCache, setWeatherCache] = useState({});
+  const [weatherLoading, setWeatherLoading] = useState(false);
+  const [mapBeach, setMapBeach] = useState(null); // which beach to show map for (null=all)
+
+  const fetchWeather = async (b) => {
+    if (weatherCache[b.id]) return;
+    setWeatherLoading(true);
+    try {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${b.lat}&longitude=${b.lon}&current=temperature_2m,weathercode,windspeed_10m,relative_humidity_2m,apparent_temperature&timezone=Asia%2FKolkata`;
+      const res = await fetch(url);
+      const data = await res.json();
+      const c = data.current;
+      const wmoIcon = (code) => {
+        if(code===0) return "☀️";
+        if(code<=2) return "🌤️";
+        if(code<=3) return "☁️";
+        if(code<=48) return "🌫️";
+        if(code<=57) return "🌦️";
+        if(code<=67) return "🌧️";
+        if(code<=77) return "🌨️";
+        if(code<=82) return "⛈️";
+        if(code<=99) return "🌩️";
+        return "🌡️";
+      };
+      const wmoDesc = (code) => {
+        if(code===0) return "Clear Sky";
+        if(code<=2) return "Partly Cloudy";
+        if(code<=3) return "Overcast";
+        if(code<=48) return "Foggy";
+        if(code<=57) return "Drizzle";
+        if(code<=67) return "Rainy";
+        if(code<=77) return "Snowfall";
+        if(code<=82) return "Rain Showers";
+        if(code<=99) return "Thunderstorm";
+        return "Variable";
+      };
+      setWeatherCache(prev => ({...prev, [b.id]: {
+        temp: Math.round(c.temperature_2m),
+        feels: Math.round(c.apparent_temperature),
+        icon: wmoIcon(c.weathercode),
+        desc: wmoDesc(c.weathercode),
+        wind: Math.round(c.windspeed_10m),
+        humidity: c.relative_humidity_2m,
+      }}));
+    } catch(e) { /* silently fail, static data used as fallback */ }
+    setWeatherLoading(false);
+  };
+
+  useEffect(() => {
+    if (screen === S.BEACHES) {
+      beaches.forEach(b => fetchWeather(b));
+    }
+  }, [screen]);
+
   useEffect(() => { const t = setTimeout(() => setScreen(S.LOGIN), 2500); return () => clearTimeout(t); }, []);
 
   const nav = s => setScreen(s);
   const nights = checkIn && checkOut ? Math.max(1, Math.round((new Date(checkOut) - new Date(checkIn)) / 86400000)) : 1;
-  const total = hotel ? hotel.price * nights * Math.max(1, guests) : 0;
+  const total = hotel ? hotel.price * nights * Math.max(1, rooms) : 0;
 
-  // Toggle activity in/out of the selection list
-  const toggleAct = (a) => setBookedActs(prev =>
-    prev.find(x => x.name === a.name) ? prev.filter(x => x.name !== a.name) : [...prev, a]
-  );
+  // Get activities selected for the current beach (scoped per beach)
+  const bookedActs = beach ? (bookedActsByBeach[beach.id] || []) : [];
+
+  // Toggle activity in/out of the selection list (scoped to current beach)
+  const toggleAct = (a) => {
+    if (!beach) return;
+    setBookedActsByBeach(prev => {
+      const cur = prev[beach.id] || [];
+      const updated = cur.find(x => x.name === a.name)
+        ? cur.filter(x => x.name !== a.name)
+        : [...cur, a];
+      return { ...prev, [beach.id]: updated };
+    });
+  };
   const isActSelected = (a) => bookedActs.some(x => x.name === a.name);
 
   // Sum all activity prices
@@ -189,7 +291,378 @@ export default function App() {
     </div>
   );
 
-  // ── SPLASH ──────────────────────────────────────────────────────────────
+  // ── WEATHER WIDGET ─────────────────────────────────────────────────────────
+  const WeatherWidget = ({b}) => {
+    const w = weatherCache[b?.id];
+    return (
+      <div style={{background:`linear-gradient(135deg,rgba(34,211,238,.12),rgba(6,255,240,.06))`,borderRadius:20,padding:"14px 15px",marginBottom:12,border:`1px solid rgba(34,211,238,.25)`}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+          <div style={{fontSize:11,fontWeight:800,color:C.cyan,letterSpacing:1}}>🌤️ LIVE WEATHER — {b?.name?.toUpperCase()}</div>
+          {weatherLoading && !w && <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",animation:"fadeUp .5s ease infinite"}}>Fetching…</div>}
+        </div>
+        {w ? (
+          <div>
+            <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:10}}>
+              <div style={{fontSize:42}}>{w.icon}</div>
+              <div>
+                <div style={{fontSize:28,fontWeight:900,color:"#fff"}}>{w.temp}°C</div>
+                <div style={{fontSize:11,color:C.sky,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>{w.desc}</div>
+                <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Feels like {w.feels}°C</div>
+              </div>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
+              {[{i:"💨",l:"Wind Speed",v:`${w.wind} km/h`},{i:"💧",l:"Humidity",v:`${w.humidity}%`}].map(x=>(
+                <div key={x.l} style={{background:"rgba(255,255,255,.05)",borderRadius:12,padding:"8px 10px",border:`1px solid ${C.border}`}}>
+                  <div style={{fontSize:16,marginBottom:2}}>{x.i}</div>
+                  <div style={{fontSize:12,fontWeight:800,color:"#fff",fontFamily:"'Nunito',sans-serif"}}>{x.v}</div>
+                  <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{x.l}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:7,textAlign:"right"}}>Powered by Open-Meteo · Updated just now</div>
+          </div>
+        ) : (
+          <div style={{display:"flex",alignItems:"center",gap:12}}>
+            <div style={{fontSize:38}}>{b?.weather?.split(" ")[1]||"🌡️"}</div>
+            <div>
+              <div style={{fontSize:22,fontWeight:900,color:"#fff"}}>{b?.weather}</div>
+              <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Loading live data…</div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  // ── MAP MODAL (Leaflet + OpenStreetMap + OSRM Routing) ─────────────────────
+  const catColors = {Temple:"#FF8C42",Heritage:"#8B5CF6",Nature:"#10B981",Wildlife:"#F59E0B",Museum:"#3B82F6",Island:"#06B6D4",Memorial:"#EF4444",Ghat:"#EC4899",Industrial:"#6B7280",Town:"#84CC16",Landmark:"#F472B6"};
+
+  const MapModal = ({targetBeach, onClose}) => {
+    const mapRef = useRef(null);
+    const [activeLayer, setActiveLayer] = useState("all");
+    const [travelMode, setTravelMode] = useState("driving");
+    const [routeInfo, setRouteInfo] = useState(null);      // {dist, duration, from, to}
+    const [routeLoading, setRouteLoading] = useState(false);
+    const [userLoc, setUserLoc] = useState(null);          // {lat, lon}
+    const [locError, setLocError] = useState(null);
+    const [activeRoute, setActiveRoute] = useState(null);  // destination name currently routed to
+    const mapInstanceRef = useRef(null);
+    const layerGroupsRef = useRef({beaches:null, nearby:null, route:null, user:null});
+    const markersRef = useRef([]);
+
+    // ── pin factories ──
+    const makeBeachPin = (L, color) => L.divIcon({
+      html:`<div style="width:32px;height:32px;background:${color};border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.55)"></div>`,
+      iconSize:[32,32],iconAnchor:[16,32],className:""
+    });
+    const makeNearbyPin = (L, icon, cat) => {
+      const bg = catColors[cat] || "#9CA3AF";
+      return L.divIcon({
+        html:`<div style="width:36px;height:36px;background:${bg};border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;font-size:17px">${icon}</div>`,
+        iconSize:[36,36],iconAnchor:[18,18],className:""
+      });
+    };
+    const makeUserPin = (L) => L.divIcon({
+      html:`<div style="width:22px;height:22px;background:#22D3EE;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 5px rgba(34,211,238,.3),0 3px 10px rgba(0,0,0,.5)"></div>`,
+      iconSize:[22,22],iconAnchor:[11,11],className:""
+    });
+
+    // ── OSRM route fetch ──
+    const fetchRoute = async (fromLat, fromLon, toLat, toLon, toName) => {
+      setRouteLoading(true);
+      setRouteInfo(null);
+      const osrmMode = travelMode === "driving" ? "driving" : travelMode === "cycling" ? "cycling" : "foot";
+      try {
+        const url = `https://router.project-osrm.org/route/v1/${osrmMode}/${fromLon},${fromLat};${toLon},${toLat}?overview=full&geometries=geojson`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.code !== "Ok" || !data.routes?.length) { setRouteInfo({error:"Route not found. Try a different mode."}); setRouteLoading(false); return; }
+        const route = data.routes[0];
+        const distKm = (route.distance / 1000).toFixed(1);
+        const mins = Math.round(route.duration / 60);
+        const hrs = Math.floor(mins / 60);
+        const remMins = mins % 60;
+        const durationStr = hrs > 0 ? `${hrs}h ${remMins}m` : `${mins} min`;
+        setRouteInfo({dist: distKm, duration: durationStr, to: toName, mode: travelMode});
+        setActiveRoute(toName);
+
+        // Draw route polyline on map
+        const L = window.L;
+        const map = mapInstanceRef.current;
+        if (L && map) {
+          // Clear old route layer
+          const oldRoute = layerGroupsRef.current.route;
+          if (oldRoute) { oldRoute.clearLayers(); } else {
+            const rg = L.layerGroup().addTo(map);
+            layerGroupsRef.current.route = rg;
+          }
+          const rg = layerGroupsRef.current.route;
+          // Animated dashed route line
+          const coords = route.geometry.coordinates.map(c => [c[1], c[0]]);
+          L.polyline(coords, {color:"#22D3EE", weight:5, opacity:.85, dashArray:"10,6", lineJoin:"round"}).addTo(rg);
+          L.polyline(coords, {color:"#fff", weight:2, opacity:.3}).addTo(rg);
+          // Fit map to route
+          const bounds = L.latLngBounds(coords);
+          map.fitBounds(bounds, {padding:[30,30]});
+        }
+      } catch(e) {
+        setRouteInfo({error:"Couldn't load route. Check your connection."});
+      }
+      setRouteLoading(false);
+    };
+
+    // ── get user location & route to beach ──
+    const getLocationAndRoute = (toLat, toLon, toName) => {
+      setLocError(null);
+      setRouteLoading(true);
+      if (!navigator.geolocation) { setLocError("Geolocation not supported by your browser."); setRouteLoading(false); return; }
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const {latitude: lat, longitude: lon} = pos.coords;
+          setUserLoc({lat, lon});
+          // Place user marker
+          const L = window.L;
+          const map = mapInstanceRef.current;
+          if (L && map) {
+            const ug = layerGroupsRef.current.user;
+            if (ug) ug.clearLayers();
+            const userMarker = L.marker([lat, lon], {icon: makeUserPin(L)})
+              .bindPopup(`<div style="font-family:sans-serif;font-size:12px;font-weight:800;color:#22D3EE">📍 You are here</div>`)
+              .addTo(layerGroupsRef.current.user || (() => { const g = L.layerGroup().addTo(map); layerGroupsRef.current.user = g; return g; })());
+          }
+          fetchRoute(lat, lon, toLat, toLon, toName);
+        },
+        (err) => {
+          setRouteLoading(false);
+          if (err.code === 1) setLocError("Location permission denied. Please allow access.");
+          else if (err.code === 2) setLocError("Location unavailable. Try again.");
+          else setLocError("Timeout. Try again.");
+        },
+        {timeout: 10000, maximumAge: 60000}
+      );
+    };
+
+    // ── build map on mount ──
+    useEffect(() => {
+      if (!mapRef.current || mapRef.current._leaflet_id) return;
+      const L = window.L;
+      if (!L) return;
+      const center = targetBeach ? [targetBeach.lat, targetBeach.lon] : [21.5, 71.5];
+      const zoom = targetBeach ? 11 : 7;
+      const map = L.map(mapRef.current, {zoomControl:true, scrollWheelZoom:false}).setView(center, zoom);
+      mapInstanceRef.current = map;
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:'© <a href="https://openstreetmap.org">OpenStreetMap</a>', maxZoom:19
+      }).addTo(map);
+
+      const beachGroup = L.layerGroup().addTo(map);
+      const nearbyGroup = L.layerGroup().addTo(map);
+      const routeGroup = L.layerGroup().addTo(map);
+      const userGroup = L.layerGroup().addTo(map);
+      layerGroupsRef.current = {beaches: beachGroup, nearby: nearbyGroup, route: routeGroup, user: userGroup};
+
+      const list = targetBeach ? [targetBeach] : beaches;
+      list.forEach(b => {
+        const w = weatherCache[b.id];
+        const popup = document.createElement("div");
+        popup.innerHTML = `<div style="font-family:sans-serif;font-size:12px;min-width:175px;padding:3px">
+          <div style="font-weight:800;color:${b.tagC};font-size:13px;margin-bottom:3px">🏖️ ${b.name}</div>
+          <div style="font-size:10px;color:#555;margin-bottom:3px">📍 ${b.loc}</div>
+          ${w ? `<div style="font-size:11px;margin-bottom:3px">🌡️ <b>${w.temp}°C</b> ${w.icon} ${w.desc}</div>` : `<div style="font-size:10px;color:#888">${b.weather}</div>`}
+          <div style="font-size:10px;color:#22D3EE;margin-bottom:6px">⭐ ${b.rating} · 🚗 ${b.dist} km from Ahmedabad</div>
+          <button id="route-beach-${b.id}" style="width:100%;padding:5px 0;background:linear-gradient(135deg,#22D3EE,#06FFF0);border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;color:#060F1E">🧭 Navigate Here</button>
+        </div>`;
+        const marker = L.marker([b.lat, b.lon], {icon: makeBeachPin(L, b.tagC)}).addTo(beachGroup).bindPopup(popup);
+        marker.on("popupopen", () => {
+          setTimeout(() => {
+            const btn = document.getElementById(`route-beach-${b.id}`);
+            if (btn) btn.onclick = () => getLocationAndRoute(b.lat, b.lon, b.name);
+          }, 100);
+        });
+        markersRef.current.push(marker);
+
+        if (b.nearby) {
+          b.nearby.forEach(p => {
+            const pPopup = document.createElement("div");
+            pPopup.innerHTML = `<div style="font-family:sans-serif;font-size:12px;min-width:175px;padding:3px">
+              <div style="font-weight:800;color:#1F2937;font-size:13px;margin-bottom:2px">${p.icon} ${p.name}</div>
+              <div style="display:flex;gap:5px;margin-bottom:4px">
+                <span style="background:#F3F4F6;border-radius:5px;padding:1px 6px;font-size:9px;color:#6B7280">${p.cat}</span>
+                <span style="background:#F3F4F6;border-radius:5px;padding:1px 6px;font-size:9px;color:#6B7280">📏 ${p.dist}</span>
+              </div>
+              <div style="font-size:10px;color:#374151;margin-bottom:4px;line-height:1.4">${p.desc}</div>
+              <div style="font-size:10px;color:#F59E0B;margin-bottom:6px">⭐ ${p.rating} · Near ${b.name}</div>
+              <button id="route-nearby-${p.name.replace(/\s/g,'_')}" style="width:100%;padding:5px 0;background:linear-gradient(135deg,${catColors[p.cat]||'#9CA3AF'},${catColors[p.cat]||'#9CA3AF'}CC);border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;color:#fff">🧭 Navigate Here</button>
+            </div>`;
+            const pm = L.marker([p.lat, p.lon], {icon: makeNearbyPin(L, p.icon, p.cat)}).addTo(nearbyGroup).bindPopup(pPopup);
+            pm.on("popupopen", () => {
+              setTimeout(() => {
+                const btn = document.getElementById(`route-nearby-${p.name.replace(/\s/g,'_')}`);
+                if (btn) btn.onclick = () => getLocationAndRoute(p.lat, p.lon, p.name);
+              }, 100);
+            });
+            markersRef.current.push(pm);
+          });
+        }
+      });
+
+      if (targetBeach) {
+        setTimeout(() => {
+          beachGroup.eachLayer(l => { if (l.getLatLng) { l.openPopup(); } });
+        }, 400);
+      }
+    }, []);
+
+    // ── layer toggle ──
+    useEffect(() => {
+      const {beaches: bg, nearby: ng} = layerGroupsRef.current;
+      const map = mapInstanceRef.current;
+      if (!map || !bg || !ng) return;
+      if (activeLayer==="all")     { if(!map.hasLayer(bg)) map.addLayer(bg); if(!map.hasLayer(ng)) map.addLayer(ng); }
+      else if (activeLayer==="beaches") { if(!map.hasLayer(bg)) map.addLayer(bg); if(map.hasLayer(ng))  map.removeLayer(ng); }
+      else if (activeLayer==="nearby")  { if(map.hasLayer(bg))  map.removeLayer(bg); if(!map.hasLayer(ng)) map.addLayer(ng); }
+    }, [activeLayer]);
+
+    // ── clear route ──
+    const clearRoute = () => {
+      const rg = layerGroupsRef.current.route;
+      const ug = layerGroupsRef.current.user;
+      if (rg) rg.clearLayers();
+      if (ug) ug.clearLayers();
+      setRouteInfo(null);
+      setActiveRoute(null);
+      setUserLoc(null);
+      if (mapInstanceRef.current && targetBeach) {
+        mapInstanceRef.current.setView([targetBeach.lat, targetBeach.lon], 11);
+      }
+    };
+
+    const modeIcon = {driving:"🚗", cycling:"🚲", walking:"🚶"};
+    const nearbyCount = targetBeach ? (targetBeach.nearby?.length||0) : beaches.reduce((s,b)=>s+(b.nearby?.length||0),0);
+
+    return (
+      <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.9)",zIndex:9999,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:10,overflowY:"auto"}}>
+        <div style={{width:364,background:C.navy,borderRadius:28,overflow:"hidden",boxShadow:"0 20px 60px rgba(0,0,0,.85)",border:`1px solid ${C.border}`,maxHeight:"96vh",display:"flex",flexDirection:"column"}}>
+
+          {/* Header */}
+          <div style={{background:"linear-gradient(180deg,#071828,#0D2035)",padding:"12px 15px",display:"flex",justifyContent:"space-between",alignItems:"center",flexShrink:0}}>
+            <div>
+              <div style={{fontSize:14,fontWeight:800,color:"#fff"}}>🗺️ {targetBeach ? targetBeach.name : "All Gujarat Beaches"}</div>
+              <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>OpenStreetMap · OSRM Routing · Free APIs</div>
+            </div>
+            <button onClick={onClose} style={{background:"rgba(255,255,255,.1)",border:"none",borderRadius:10,padding:"6px 12px",color:"#fff",fontSize:13,cursor:"pointer",fontWeight:700}}>✕</button>
+          </div>
+
+          {/* Travel mode selector */}
+          <div style={{background:"rgba(255,255,255,.03)",padding:"7px 12px",display:"flex",gap:6,borderBottom:`1px solid ${C.border}`,flexShrink:0}}>
+            <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",display:"flex",alignItems:"center",marginRight:3,whiteSpace:"nowrap"}}>Mode:</div>
+            {[{k:"driving",l:"🚗 Drive"},{k:"cycling",l:"🚲 Cycle"},{k:"walking",l:"🚶 Walk"}].map(x=>(
+              <button key={x.k} onClick={()=>{setTravelMode(x.k);if(routeInfo&&!routeInfo.error&&userLoc&&activeRoute){const dest=targetBeach?targetBeach:{lat:23,lon:72};fetchRoute(userLoc.lat,userLoc.lon,dest.lat,dest.lon,activeRoute);}}} style={{flex:1,background:travelMode===x.k?"rgba(34,211,238,.18)":"rgba(255,255,255,.04)",border:`1px solid ${travelMode===x.k?C.sky:C.border}`,borderRadius:10,padding:"5px 2px",color:travelMode===x.k?C.sky:"rgba(255,255,255,.4)",fontSize:10,cursor:"pointer",fontWeight:700,transition:"all .2s"}}>{x.l}</button>
+            ))}
+          </div>
+
+          {/* Layer toggle */}
+          <div style={{background:"rgba(255,255,255,.02)",padding:"6px 12px",display:"flex",gap:6,borderBottom:`1px solid ${C.border}`,flexShrink:0}}>
+            {[{k:"all",l:"🗂️ All",c:C.sky},{k:"beaches",l:"🏖️ Beaches",c:C.pink},{k:"nearby",l:"📍 Nearby",c:"#A78BFA"}].map(x=>(
+              <button key={x.k} onClick={()=>setActiveLayer(x.k)} style={{flex:1,background:activeLayer===x.k?`${x.c}22`:"rgba(255,255,255,.03)",border:`1px solid ${activeLayer===x.k?x.c:C.border}`,borderRadius:9,padding:"4px 2px",color:activeLayer===x.k?x.c:"rgba(255,255,255,.35)",fontSize:10,cursor:"pointer",fontWeight:700,transition:"all .2s"}}>{x.l}</button>
+            ))}
+          </div>
+
+          {/* Map */}
+          <div ref={mapRef} style={{height:280,width:"100%",flexShrink:0}}/>
+
+          {/* Quick navigate buttons */}
+          {targetBeach && (
+            <div style={{padding:"8px 12px",background:"rgba(255,255,255,.03)",borderTop:`1px solid ${C.border}`,flexShrink:0}}>
+              <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:6,letterSpacing:.5}}>QUICK NAVIGATE TO</div>
+              <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+                <button onClick={()=>getLocationAndRoute(targetBeach.lat,targetBeach.lon,targetBeach.name)}
+                  style={{background:activeRoute===targetBeach.name?"rgba(34,211,238,.2)":"rgba(255,255,255,.06)",border:`1px solid ${activeRoute===targetBeach.name?C.sky:C.border}`,borderRadius:10,padding:"5px 10px",color:activeRoute===targetBeach.name?C.sky:"#fff",fontSize:10,cursor:"pointer",fontFamily:"'Outfit',sans-serif",fontWeight:700}}>
+                  🏖️ {targetBeach.name}
+                </button>
+                {targetBeach.nearby?.map(p=>(
+                  <button key={p.name} onClick={()=>getLocationAndRoute(p.lat,p.lon,p.name)}
+                    style={{background:activeRoute===p.name?`${catColors[p.cat]||"#9CA3AF"}22`:"rgba(255,255,255,.06)",border:`1px solid ${activeRoute===p.name?(catColors[p.cat]||"#9CA3AF"):C.border}`,borderRadius:10,padding:"5px 10px",color:activeRoute===p.name?(catColors[p.cat]||"#9CA3AF"):"rgba(255,255,255,.7)",fontSize:10,cursor:"pointer",fontFamily:"'Outfit',sans-serif",fontWeight:700}}>
+                    {p.icon} {p.name.split(" ").slice(0,2).join(" ")}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Route info panel */}
+          <div style={{padding:"8px 12px",background:"rgba(0,0,0,.25)",borderTop:`1px solid ${C.border}`,flexShrink:0}}>
+            {routeLoading && (
+              <div style={{display:"flex",alignItems:"center",gap:8,padding:"8px 0"}}>
+                <div style={{width:16,height:16,border:`2px solid ${C.sky}`,borderTopColor:"transparent",borderRadius:"50%",animation:"spin 0.8s linear infinite"}}/>
+                <div style={{fontSize:11,color:C.sky,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>Getting your location & routing…</div>
+              </div>
+            )}
+            {locError && (
+              <div style={{background:"rgba(239,68,68,.12)",border:"1px solid rgba(239,68,68,.3)",borderRadius:10,padding:"8px 11px",display:"flex",gap:8,alignItems:"center"}}>
+                <span style={{fontSize:14}}>⚠️</span>
+                <div style={{fontSize:10,color:"#FCA5A5",fontFamily:"'Nunito',sans-serif"}}>{locError}</div>
+              </div>
+            )}
+            {routeInfo && !routeInfo.error && (
+              <div style={{background:"linear-gradient(135deg,rgba(34,211,238,.12),rgba(6,255,240,.05))",borderRadius:14,padding:"10px 12px",border:`1px solid ${C.sky}33`}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:7}}>
+                  <div>
+                    <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:2}}>Route: You → {routeInfo.to}</div>
+                    <div style={{display:"flex",gap:14,alignItems:"center"}}>
+                      <div style={{textAlign:"center"}}>
+                        <div style={{fontSize:18,fontWeight:900,color:"#fff"}}>{routeInfo.dist} km</div>
+                        <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Distance</div>
+                      </div>
+                      <div style={{width:1,height:30,background:C.border}}/>
+                      <div style={{textAlign:"center"}}>
+                        <div style={{fontSize:18,fontWeight:900,color:C.sky}}>{routeInfo.duration}</div>
+                        <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{modeIcon[routeInfo.mode]} {routeInfo.mode}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <button onClick={clearRoute} style={{background:"rgba(239,68,68,.15)",border:"1px solid rgba(239,68,68,.3)",borderRadius:9,padding:"5px 9px",color:"#FCA5A5",fontSize:10,cursor:"pointer",fontWeight:700}}>✕ Clear</button>
+                </div>
+                <div style={{display:"flex",gap:6}}>
+                  {[{k:"driving",l:"🚗"},{k:"cycling",l:"🚲"},{k:"walking",l:"🚶"}].map(m=>(
+                    <button key={m.k} onClick={()=>{setTravelMode(m.k);if(userLoc&&activeRoute){const dest=targetBeach?.nearby?.find(p=>p.name===activeRoute)||targetBeach;const dLat=dest?.lat||targetBeach?.lat;const dLon=dest?.lon||targetBeach?.lon;fetchRoute(userLoc.lat,userLoc.lon,dLat,dLon,activeRoute);}}}
+                      style={{flex:1,background:travelMode===m.k?"rgba(34,211,238,.2)":"rgba(255,255,255,.06)",border:`1px solid ${travelMode===m.k?C.sky:C.border}`,borderRadius:8,padding:"4px",fontSize:14,cursor:"pointer",transition:"all .2s"}}>
+                      {m.l}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            {routeInfo?.error && (
+              <div style={{background:"rgba(239,68,68,.1)",border:"1px solid rgba(239,68,68,.25)",borderRadius:10,padding:"8px 11px",fontSize:10,color:"#FCA5A5",fontFamily:"'Nunito',sans-serif"}}>{routeInfo.error}</div>
+            )}
+            {!routeLoading && !routeInfo && !locError && (
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Tap 🧭 on any pin or button above to navigate</div>
+                <div style={{fontSize:9,color:"#A78BFA",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>{nearbyCount} nearby plotted</div>
+              </div>
+            )}
+          </div>
+        </div>
+        <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+      </div>
+    );
+  };
+
+  const [showMap, setShowMap] = useState(false);
+  const [leafletReady, setLeafletReady] = useState(false);
+
+  useEffect(() => {
+    if (window.L) { setLeafletReady(true); return; }
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    document.head.appendChild(link);
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    script.onload = () => setLeafletReady(true);
+    document.head.appendChild(script);
+  }, []);
   if (screen === S.SPLASH) return (
     <div style={wrap}><style>{css}</style>
       <div style={ph}>
@@ -392,13 +865,19 @@ export default function App() {
   // ── BEACHES ──────────────────────────────────────────────────────────────
   if (screen === S.BEACHES) return (
     <div style={wrap}><style>{css}</style>
+      {showMap && leafletReady && <MapModal targetBeach={mapBeach} onClose={()=>setShowMap(false)}/>}
       <div style={ph}>
         <div style={scr}>
           <div style={{background:"linear-gradient(180deg,#071828,#0D2035)",flexShrink:0}}>
             <SB/>
             <div style={{padding:"2px 20px 18px"}}>
-              <div style={{fontSize:22,fontWeight:900,color:"#fff"}}>🏖️ Explore Beaches</div>
-              <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:2}}>Gujarat · 6 destinations · More coming soon</div>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                <div>
+                  <div style={{fontSize:22,fontWeight:900,color:"#fff"}}>🏖️ Explore Beaches</div>
+                  <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:2}}>Gujarat · 6 destinations · More coming soon</div>
+                </div>
+                <button onClick={()=>{setMapBeach(null);setShowMap(true);}} style={{background:`linear-gradient(135deg,#22D3EE22,#06FFF022)`,border:`1px solid ${C.sky}44`,borderRadius:14,padding:"8px 13px",color:C.sky,fontSize:11,cursor:"pointer",fontFamily:"'Outfit',sans-serif",fontWeight:800}}>🗺️ Map</button>
+              </div>
             </div>
           </div>
           <div style={scroll}>
@@ -418,7 +897,9 @@ export default function App() {
                   <div style={{padding:"11px 13px"}}>
                     <div style={{display:"flex",justifyContent:"space-between",marginBottom:5}}>
                       <div style={{fontSize:10,color:C.sky,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>🚗 {b.dist} km from Ahmedabad</div>
-                      <div style={{fontSize:10,color:C.pink,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>{b.weather}</div>
+                      <div style={{fontSize:10,color:C.pink,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>
+                        {weatherCache[b.id] ? `${weatherCache[b.id].temp}°C ${weatherCache[b.id].icon}` : b.weather}
+                      </div>
                     </div>
                     <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>🌟 {b.famousFor}</div>
                   </div>
@@ -435,6 +916,7 @@ export default function App() {
   // ── BEACH DETAIL ─────────────────────────────────────────────────────────
   if (screen === S.BEACH && beach) return (
     <div style={wrap}><style>{css}</style>
+      {showMap && leafletReady && <MapModal targetBeach={mapBeach} onClose={()=>setShowMap(false)}/>}
       <div style={ph}>
         <div style={scr}>
           <div style={{height:210,position:"relative",overflow:"hidden",flexShrink:0}}>
@@ -450,8 +932,8 @@ export default function App() {
           </div>
           <div style={scroll}>
             <div style={{padding:"13px 18px 24px"}}>
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:14}}>
-                {[{i:"🚗",l:"Distance",v:beach.dist+" km"},{i:"🌡️",l:"Weather",v:beach.weather},{i:"📅",l:"Best Time",v:beach.bestTime}].map(x=>(
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:14}}>
+                {[{i:"🚗",l:"Distance",v:beach.dist+" km"},{i:"📅",l:"Best Time",v:beach.bestTime}].map(x=>(
                   <div key={x.l} style={{background:C.card,borderRadius:14,padding:"11px 8px",textAlign:"center",border:`1px solid ${C.border}`}}>
                     <div style={{fontSize:18,marginBottom:3}}>{x.i}</div>
                     <div style={{fontSize:10,fontWeight:800,color:"#fff",fontFamily:"'Nunito',sans-serif"}}>{x.v}</div>
@@ -459,6 +941,12 @@ export default function App() {
                   </div>
                 ))}
               </div>
+              {/* Live Weather Widget */}
+              <WeatherWidget b={beach}/>
+              {/* Map Button */}
+              <button onClick={()=>{setMapBeach(beach);setShowMap(true);}} style={{width:"100%",background:`linear-gradient(135deg,rgba(34,211,238,.12),rgba(6,255,240,.06))`,border:`1px solid ${C.sky}44`,borderRadius:16,padding:"12px",color:C.sky,fontSize:12,cursor:"pointer",fontFamily:"'Outfit',sans-serif",fontWeight:800,marginBottom:12,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+                🗺️ View {beach.name} on Map &nbsp;·&nbsp; OpenStreetMap
+              </button>
               <div style={{background:C.card,borderRadius:18,padding:13,marginBottom:12,border:`1px solid ${C.border}`}}>
                 <div style={{fontSize:11,fontWeight:800,color:C.sky,marginBottom:6}}>About This Beach</div>
                 <div style={{fontSize:12,color:"rgba(255,255,255,.62)",fontFamily:"'Nunito',sans-serif",lineHeight:1.65}}>{beach.desc}</div>
@@ -467,6 +955,36 @@ export default function App() {
                 <div style={{fontSize:11,fontWeight:800,color:C.pink,marginBottom:7}}>🌟 Famous For</div>
                 <div style={{fontSize:12,color:"rgba(255,255,255,.62)",fontFamily:"'Nunito',sans-serif"}}>{beach.famousFor}</div>
               </div>
+              {/* Nearby Places */}
+              {beach.nearby && beach.nearby.length > 0 && (
+                <div style={{marginBottom:14}}>
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:11}}>
+                    <div style={{fontSize:14,fontWeight:800,color:"#fff"}}>📍 Nearby Places to Visit</div>
+                    <button onClick={()=>{setMapBeach(beach);setShowMap(true);}} style={{background:"rgba(167,139,250,.15)",border:"1px solid rgba(167,139,250,.4)",borderRadius:10,padding:"4px 10px",color:"#A78BFA",fontSize:10,cursor:"pointer",fontFamily:"'Outfit',sans-serif",fontWeight:800}}>🗺️ See on Map</button>
+                  </div>
+                  {beach.nearby.map((p,i)=>{
+                    const catColors = {Temple:"#FF8C42",Heritage:"#8B5CF6",Nature:"#10B981",Wildlife:"#F59E0B",Museum:"#3B82F6",Island:"#06B6D4",Memorial:"#EF4444",Ghat:"#EC4899",Industrial:"#6B7280",Town:"#84CC16",Landmark:"#F472B6"};
+                    const cc = catColors[p.cat] || "#9CA3AF";
+                    return (
+                      <div key={i} style={{background:C.card,borderRadius:18,padding:"12px 13px",marginBottom:9,border:`1px solid ${C.border}`,display:"flex",gap:12,alignItems:"flex-start"}}>
+                        <div style={{width:46,height:46,borderRadius:15,background:`${cc}22`,border:`1.5px solid ${cc}44`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,flexShrink:0}}>{p.icon}</div>
+                        <div style={{flex:1}}>
+                          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:3}}>
+                            <div style={{fontSize:13,fontWeight:800,color:"#fff",flex:1,paddingRight:8}}>{p.name}</div>
+                            <div style={{fontSize:11,color:C.gold,fontWeight:700,flexShrink:0}}>⭐ {p.rating}</div>
+                          </div>
+                          <div style={{display:"flex",gap:6,marginBottom:5}}>
+                            <span style={{background:`${cc}22`,border:`1px solid ${cc}33`,borderRadius:8,padding:"1px 7px",fontSize:9,color:cc,fontFamily:"'Nunito',sans-serif",fontWeight:800}}>{p.cat}</span>
+                            <span style={{background:"rgba(255,255,255,.06)",borderRadius:8,padding:"1px 7px",fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>📏 {p.dist}</span>
+                          </div>
+                          <div style={{fontSize:11,color:"rgba(255,255,255,.55)",fontFamily:"'Nunito',sans-serif",lineHeight:1.5,marginBottom:8}}>{p.desc}</div>
+                          <button onClick={()=>{setMapBeach(beach);setShowMap(true);}} style={{background:`${cc}18`,border:`1px solid ${cc}44`,borderRadius:10,padding:"5px 12px",color:cc,fontSize:10,cursor:"pointer",fontFamily:"'Outfit',sans-serif",fontWeight:800}}>🧭 Navigate on Map</button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
               <div style={{marginBottom:14}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:11}}>
                   <div style={{fontSize:14,fontWeight:800,color:"#fff"}}>🎯 Activities & Experiences</div>
@@ -689,18 +1207,28 @@ export default function App() {
                     <div style={{fontSize:11,color:"#FF8080",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>{dateErr}</div>
                   </div>
                 )}
-                <div style={{display:"flex",alignItems:"center",gap:11}}>
-                  <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Guests:</div>
-                  <button onClick={()=>setGuests(Math.max(1,guests-1))} style={{width:32,height:32,borderRadius:10,background:"rgba(255,255,255,.07)",border:"none",color:"#fff",fontSize:16,cursor:"pointer"}}>−</button>
-                  <div style={{fontSize:16,fontWeight:800,color:"#fff",minWidth:22,textAlign:"center"}}>{guests}</div>
-                  <button onClick={()=>setGuests(guests+1)} style={{width:32,height:32,borderRadius:10,background:"rgba(255,255,255,.07)",border:"none",color:"#fff",fontSize:16,cursor:"pointer"}}>+</button>
-                  <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{nights} night{nights!==1?"s":""}</div>
+                <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap"}}>
+                  {/* Guests stepper */}
+                  <div style={{display:"flex",alignItems:"center",gap:7,background:"rgba(255,255,255,.04)",borderRadius:12,padding:"7px 11px",border:`1px solid ${C.border}`}}>
+                    <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginRight:2}}>👤 Guests:</div>
+                    <button onClick={()=>{const g=Math.max(1,guests-1);setGuests(g);setRooms(Math.ceil(g/3));}} style={{width:28,height:28,borderRadius:8,background:"rgba(255,255,255,.07)",border:"none",color:"#fff",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>−</button>
+                    <div style={{fontSize:15,fontWeight:800,color:"#fff",minWidth:20,textAlign:"center"}}>{guests}</div>
+                    <button onClick={()=>{const g=guests+1;setGuests(g);setRooms(Math.ceil(g/3));}} style={{width:28,height:28,borderRadius:8,background:"rgba(255,255,255,.07)",border:"none",color:"#fff",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>+</button>
+                  </div>
+                  {/* Rooms stepper */}
+                  <div style={{display:"flex",alignItems:"center",gap:7,background:"rgba(255,255,255,.04)",borderRadius:12,padding:"7px 11px",border:`1px solid ${C.border}`}}>
+                    <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginRight:2}}>🛏️ Rooms:</div>
+                    <button onClick={()=>{const minRooms=Math.ceil(guests/3);if(rooms>minRooms)setRooms(rooms-1);}} style={{width:28,height:28,borderRadius:8,background:"rgba(255,255,255,.07)",border:"none",color:"#fff",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>−</button>
+                    <div style={{fontSize:15,fontWeight:800,color:"#fff",minWidth:20,textAlign:"center"}}>{rooms}</div>
+                    <button onClick={()=>setRooms(rooms+1)} style={{width:28,height:28,borderRadius:8,background:"rgba(255,255,255,.07)",border:"none",color:"#fff",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>+</button>
+                  </div>
+                  <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",width:"100%",marginTop:2}}>ℹ️ Max 3 guests per room · {nights} night{nights!==1?"s":""}</div>
                 </div>
               </div>
               <div style={{background:"rgba(34,211,238,.06)",borderRadius:18,padding:13,marginTop:11,border:`1px solid ${C.sky}22`}}>
                 <div style={{fontSize:11,fontWeight:800,color:C.cyan,marginBottom:9}}>💰 PRICE SUMMARY</div>
                 <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
-                  <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",flex:1,paddingRight:8}}>Hotel: ₹{hotel.price.toLocaleString()} × {nights} nights × {guests} guests</div>
+                  <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",flex:1,paddingRight:8}}>Hotel: ₹{hotel.price.toLocaleString()} × {nights} nights × {rooms} room{rooms!==1?"s":""}</div>
                   <div style={{fontSize:11,color:"rgba(255,255,255,.75)",fontFamily:"'Nunito',sans-serif",flexShrink:0}}>₹{total.toLocaleString()}</div>
                 </div>
                 {bookedActs.length > 0 && bookedActs.map(a => {
@@ -753,7 +1281,7 @@ export default function App() {
                 <div style={{background:C.card,borderRadius:20,padding:13,marginBottom:13,border:`1px solid ${C.border}`}}>
                   <div style={{fontSize:10,color:C.sky,fontWeight:800,marginBottom:7,letterSpacing:1}}>BOOKING SUMMARY</div>
                   <div style={{fontSize:14,fontWeight:800,color:"#fff"}}>{hotel?.name}</div>
-                  <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:3}}>📍 Near {beach?.name} · {checkIn} {checkInTime} → {checkOut} {checkOutTime} · {nights} nights · {guests} guests</div>
+                  <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:3}}>📍 Near {beach?.name} · {checkIn} {checkInTime} → {checkOut} {checkOutTime} · {nights} nights · {guests} guests · {rooms} room{rooms!==1?"s":""}</div>
                   {bookedActs.length > 0 && (
                     <div style={{marginTop:8}}>
                       {bookedActs.map(a => {
@@ -819,6 +1347,7 @@ export default function App() {
                 {l:"Check-in",v:`${checkIn} at ${checkInTime}`},
                 {l:"Check-out",v:`${checkOut} at ${checkOutTime}`},
                 {l:"Guests",v:guests+" guests"},
+                {l:"Rooms",v:rooms+" room"+(rooms!==1?"s":"")},
                 {l:"Duration",v:nights+" nights"},
                 ...(bookedActs.length > 0 ? [{l:"Activities",v:bookedActs.map(a=>a.icon+" "+a.name).join(", ")}] : []),
                 ...(totalActPrice > 0 ? [{l:"Activity Cost",v:`₹${totalActPrice.toLocaleString()}`}] : []),
@@ -841,13 +1370,17 @@ export default function App() {
   // ── PLANNER ──────────────────────────────────────────────────────────────
   if (screen === S.PLANNER) return (
     <div style={wrap}><style>{css}</style>
+      {showMap && leafletReady && <MapModal targetBeach={mapBeach} onClose={()=>setShowMap(false)}/>}
       <div style={ph}>
         <div style={scr}>
           <div style={{background:"linear-gradient(180deg,#071828,#0D2035)",flexShrink:0}}>
             <SB/>
-            <div style={{padding:"2px 20px 18px"}}>
-              <div style={{fontSize:22,fontWeight:900,color:"#fff"}}>📅 Trip Planner</div>
-              <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:2}}>Build your coastal itinerary</div>
+            <div style={{padding:"2px 20px 18px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+              <div>
+                <div style={{fontSize:22,fontWeight:900,color:"#fff"}}>📅 Trip Planner</div>
+                <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:2}}>Build your coastal itinerary</div>
+              </div>
+              <button onClick={()=>{setMapBeach(null);setShowMap(true);}} style={{background:`linear-gradient(135deg,#22D3EE22,#06FFF022)`,border:`1px solid ${C.sky}44`,borderRadius:14,padding:"8px 12px",color:C.sky,fontSize:11,cursor:"pointer",fontFamily:"'Outfit',sans-serif",fontWeight:800}}>🗺️ Map</button>
             </div>
           </div>
           <div style={scroll}>
