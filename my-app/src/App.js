@@ -265,8 +265,8 @@ export default function App() {
     ::-webkit-scrollbar{display:none} *{box-sizing:border-box}
     input[type=date]{color-scheme:dark} input::placeholder{color:rgba(255,255,255,.3)}
   `;
-  const wrap = { display:"flex", justifyContent:"center", alignItems:"center", minHeight:"100vh", background:"linear-gradient(135deg,#02080F,#071422,#020B14)", padding:16, fontFamily:"'Outfit',sans-serif" };
-  const ph = { width:390, height:844, background:C.navy, borderRadius:48, overflow:"hidden", position:"relative", boxShadow:"0 60px 160px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.07),0 0 100px rgba(34,211,238,.06)" };
+  const wrap = { display:"flex", justifyContent:"center", alignItems:"center", minHeight:"100vh", background:"#ffffff", padding:16, fontFamily:"'Outfit',sans-serif" };
+  const ph = { width:390, height:844, background:C.navy, borderRadius:48, overflow:"hidden", position:"relative", boxShadow:"0 60px 160px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.07),0 0 100px rgba(34,211,238,.06)" };
   const scr = { width:"100%", height:"100%", display:"flex", flexDirection:"column", overflow:"hidden", fontFamily:"'Outfit',sans-serif" };
   const scroll = { flex:1, overflowY:"auto", overflowX:"hidden" };
 
@@ -298,7 +298,7 @@ export default function App() {
       <div style={{background:`linear-gradient(135deg,rgba(34,211,238,.12),rgba(6,255,240,.06))`,borderRadius:20,padding:"14px 15px",marginBottom:12,border:`1px solid rgba(34,211,238,.25)`}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
           <div style={{fontSize:11,fontWeight:800,color:C.cyan,letterSpacing:1}}>🌤️ LIVE WEATHER — {b?.name?.toUpperCase()}</div>
-          {weatherLoading && !w && <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",animation:"fadeUp .5s ease infinite"}}>Fetching…</div>}
+          {weatherLoading && !w && <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>Fetching…</div>}
         </div>
         {w ? (
           <div>
@@ -307,7 +307,7 @@ export default function App() {
               <div>
                 <div style={{fontSize:28,fontWeight:900,color:"#fff"}}>{w.temp}°C</div>
                 <div style={{fontSize:11,color:C.sky,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>{w.desc}</div>
-                <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Feels like {w.feels}°C</div>
+                <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>Feels like {w.feels}°C</div>
               </div>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
@@ -315,18 +315,18 @@ export default function App() {
                 <div key={x.l} style={{background:"rgba(255,255,255,.05)",borderRadius:12,padding:"8px 10px",border:`1px solid ${C.border}`}}>
                   <div style={{fontSize:16,marginBottom:2}}>{x.i}</div>
                   <div style={{fontSize:12,fontWeight:800,color:"#fff",fontFamily:"'Nunito',sans-serif"}}>{x.v}</div>
-                  <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{x.l}</div>
+                  <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{x.l}</div>
                 </div>
               ))}
             </div>
-            <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:7,textAlign:"right"}}>Powered by Open-Meteo · Updated just now</div>
+            <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:7,textAlign:"right"}}>Powered by Open-Meteo · Updated just now</div>
           </div>
         ) : (
           <div style={{display:"flex",alignItems:"center",gap:12}}>
             <div style={{fontSize:38}}>{b?.weather?.split(" ")[1]||"🌡️"}</div>
             <div>
               <div style={{fontSize:22,fontWeight:900,color:"#fff"}}>{b?.weather}</div>
-              <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Loading live data…</div>
+              <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>Loading live data…</div>
             </div>
           </div>
         )}
@@ -470,7 +470,7 @@ export default function App() {
           <div style="font-size:10px;color:#555;margin-bottom:3px">📍 ${b.loc}</div>
           ${w ? `<div style="font-size:11px;margin-bottom:3px">🌡️ <b>${w.temp}°C</b> ${w.icon} ${w.desc}</div>` : `<div style="font-size:10px;color:#888">${b.weather}</div>`}
           <div style="font-size:10px;color:#22D3EE;margin-bottom:6px">⭐ ${b.rating} · 🚗 ${b.dist} km from Ahmedabad</div>
-          <button id="route-beach-${b.id}" style="width:100%;padding:5px 0;background:linear-gradient(135deg,#22D3EE,#06FFF0);border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;color:#060F1E">🧭 Navigate Here</button>
+          <button id="route-beach-${b.id}" style="width:100%;padding:5px 0;background:linear-gradient(135deg,#22D3EE,#06FFF0);border:none;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;color:#fff">🧭 Navigate Here</button>
         </div>`;
         const marker = L.marker([b.lat, b.lon], {icon: makeBeachPin(L, b.tagC)}).addTo(beachGroup).bindPopup(popup);
         marker.on("popupopen", () => {
@@ -542,20 +542,20 @@ export default function App() {
 
     return (
       <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.9)",zIndex:9999,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:10,overflowY:"auto"}}>
-        <div style={{width:364,background:C.navy,borderRadius:28,overflow:"hidden",boxShadow:"0 20px 60px rgba(0,0,0,.85)",border:`1px solid ${C.border}`,maxHeight:"96vh",display:"flex",flexDirection:"column"}}>
+        <div style={{width:364,background:C.navy,borderRadius:24,overflow:"hidden",boxShadow:"0 20px 60px rgba(0,0,0,.2)",border:`1px solid ${C.border}`,maxHeight:"96vh",display:"flex",flexDirection:"column"}}>
 
           {/* Header */}
-          <div style={{background:"linear-gradient(180deg,#071828,#0D2035)",padding:"12px 15px",display:"flex",justifyContent:"space-between",alignItems:"center",flexShrink:0}}>
+          <div style={{background:C.grad1,padding:"14px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",flexShrink:0}}>
             <div>
               <div style={{fontSize:14,fontWeight:800,color:"#fff"}}>🗺️ {targetBeach ? targetBeach.name : "All Gujarat Beaches"}</div>
-              <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>OpenStreetMap · OSRM Routing · Free APIs</div>
+              <div style={{fontSize:9,color:"rgba(255,255,255,.75)",fontFamily:"'Nunito',sans-serif"}}>OpenStreetMap · OSRM Routing · Free APIs</div>
             </div>
-            <button onClick={onClose} style={{background:"rgba(255,255,255,.1)",border:"none",borderRadius:10,padding:"6px 12px",color:"#fff",fontSize:13,cursor:"pointer",fontWeight:700}}>✕</button>
+            <button onClick={onClose} style={{background:"rgba(255,255,255,.2)",border:"none",borderRadius:10,padding:"6px 12px",color:"#fff",fontSize:13,cursor:"pointer",fontWeight:700}}>✕</button>
           </div>
 
           {/* Travel mode selector */}
-          <div style={{background:"rgba(255,255,255,.03)",padding:"7px 12px",display:"flex",gap:6,borderBottom:`1px solid ${C.border}`,flexShrink:0}}>
-            <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",display:"flex",alignItems:"center",marginRight:3,whiteSpace:"nowrap"}}>Mode:</div>
+          <div style={{background:C.card,padding:"8px 12px",display:"flex",gap:6,borderBottom:`1px solid ${C.border}`,flexShrink:0}}>
+            <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",display:"flex",alignItems:"center",marginRight:3,whiteSpace:"nowrap",fontWeight:700}}>Mode:</div>
             {[{k:"driving",l:"🚗 Drive"},{k:"cycling",l:"🚲 Cycle"},{k:"walking",l:"🚶 Walk"}].map(x=>(
               <button key={x.k} onClick={()=>{setTravelMode(x.k);if(routeInfo&&!routeInfo.error&&userLoc&&activeRoute){const dest=targetBeach?targetBeach:{lat:23,lon:72};fetchRoute(userLoc.lat,userLoc.lon,dest.lat,dest.lon,activeRoute);}}} style={{flex:1,background:travelMode===x.k?"rgba(34,211,238,.18)":"rgba(255,255,255,.04)",border:`1px solid ${travelMode===x.k?C.sky:C.border}`,borderRadius:10,padding:"5px 2px",color:travelMode===x.k?C.sky:"rgba(255,255,255,.4)",fontSize:10,cursor:"pointer",fontWeight:700,transition:"all .2s"}}>{x.l}</button>
             ))}
@@ -574,7 +574,7 @@ export default function App() {
           {/* Quick navigate buttons */}
           {targetBeach && (
             <div style={{padding:"8px 12px",background:"rgba(255,255,255,.03)",borderTop:`1px solid ${C.border}`,flexShrink:0}}>
-              <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:6,letterSpacing:.5}}>QUICK NAVIGATE TO</div>
+              <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginBottom:6,letterSpacing:.5,fontWeight:700}}>QUICK NAVIGATE TO</div>
               <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
                 <button onClick={()=>getLocationAndRoute(targetBeach.lat,targetBeach.lon,targetBeach.name)}
                   style={{background:activeRoute===targetBeach.name?"rgba(34,211,238,.2)":"rgba(255,255,255,.06)",border:`1px solid ${activeRoute===targetBeach.name?C.sky:C.border}`,borderRadius:10,padding:"5px 10px",color:activeRoute===targetBeach.name?C.sky:"#fff",fontSize:10,cursor:"pointer",fontFamily:"'Outfit',sans-serif",fontWeight:700}}>
@@ -608,16 +608,16 @@ export default function App() {
               <div style={{background:"linear-gradient(135deg,rgba(34,211,238,.12),rgba(6,255,240,.05))",borderRadius:14,padding:"10px 12px",border:`1px solid ${C.sky}33`}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:7}}>
                   <div>
-                    <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:2}}>Route: You → {routeInfo.to}</div>
+                    <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginBottom:2}}>Route: You → {routeInfo.to}</div>
                     <div style={{display:"flex",gap:14,alignItems:"center"}}>
                       <div style={{textAlign:"center"}}>
                         <div style={{fontSize:18,fontWeight:900,color:"#fff"}}>{routeInfo.dist} km</div>
-                        <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Distance</div>
+                        <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>Distance</div>
                       </div>
                       <div style={{width:1,height:30,background:C.border}}/>
                       <div style={{textAlign:"center"}}>
                         <div style={{fontSize:18,fontWeight:900,color:C.sky}}>{routeInfo.duration}</div>
-                        <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{modeIcon[routeInfo.mode]} {routeInfo.mode}</div>
+                        <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{modeIcon[routeInfo.mode]} {routeInfo.mode}</div>
                       </div>
                     </div>
                   </div>
@@ -638,7 +638,7 @@ export default function App() {
             )}
             {!routeLoading && !routeInfo && !locError && (
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Tap 🧭 on any pin or button above to navigate</div>
+                <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>Tap 🧭 on any pin or button above to navigate</div>
                 <div style={{fontSize:9,color:"#A78BFA",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>{nearbyCount} nearby plotted</div>
               </div>
             )}
@@ -674,9 +674,9 @@ export default function App() {
             <div style={{fontSize:26,fontWeight:900,color:"#fff",lineHeight:1.15}}>Coastal Management</div>
             <div style={{fontSize:26,fontWeight:900,lineHeight:1.15,background:C.grad3,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>& Planner Platform</div>
           </div>
-          <div style={{fontSize:12,color:C.sub,fontFamily:"'Nunito',sans-serif",animation:"fadeUp 1s ease .5s both",textAlign:"center",lineHeight:1.7}}>Discover beaches · Book hotels · Plan trips<br/><span style={{color:C.sky,fontSize:11}}>Gujarat · India · World 🌍</span></div>
+          <div style={{fontSize:12,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",animation:"fadeUp 1s ease .5s both",textAlign:"center",lineHeight:1.7}}>Discover beaches · Book hotels · Plan trips<br/><span style={{color:C.sky,fontSize:11}}>Gujarat · India · World 🌍</span></div>
           <div style={{display:"flex",gap:6,animation:"fadeUp 1s ease 1s both"}}>{[...Array(3)].map((_,i)=><div key={i} style={{width:i===1?24:7,height:7,borderRadius:4,background:i===1?C.sky:"rgba(255,255,255,.2)"}}/>)}</div>
-          <div style={{position:"absolute",bottom:22,fontSize:10,color:"rgba(255,255,255,.22)",fontFamily:"'Nunito',sans-serif",letterSpacing:2,fontWeight:700}}>MADE WITH ❤️ IN INDIA</div>
+          <div style={{position:"absolute",bottom:22,fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",letterSpacing:2,fontWeight:700}}>MADE WITH ❤️ IN INDIA</div>
         </div>
       </div>
     </div>
@@ -686,25 +686,25 @@ export default function App() {
   if (screen === S.LOGIN) return (
     <div style={wrap}><style>{css}</style>
       <div style={ph}>
-        <div style={{...scr,background:C.gradBg}}>
+        <div style={{...scr,background:C.card}}>
           <div style={{flex:1,display:"flex",flexDirection:"column",justifyContent:"center",padding:"32px 26px"}}>
             <div style={{textAlign:"center",marginBottom:34}}>
               <div style={{fontSize:64,marginBottom:12,animation:"fadeUp .6s ease"}}>🌊</div>
               <div style={{fontSize:26,fontWeight:900,color:"#fff",animation:"fadeUp .7s ease .1s both"}}>Welcome!</div>
-              <div style={{fontSize:13,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:6,animation:"fadeUp .7s ease .2s both"}}>Enter your mobile number to get started</div>
+              <div style={{fontSize:13,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:6,animation:"fadeUp .7s ease .2s both"}}>Enter your mobile number to get started</div>
             </div>
             <div style={{animation:"fadeUp .7s ease .3s both"}}>
               <div style={{fontSize:10,color:C.sky,fontFamily:"'Nunito',sans-serif",fontWeight:800,marginBottom:8,letterSpacing:1.5}}>MOBILE NUMBER</div>
               <div style={{display:"flex",gap:9,marginBottom:20}}>
                 <div style={{background:"rgba(34,211,238,.1)",border:`1px solid ${C.sky}44`,borderRadius:16,padding:"13px 12px",color:"#fff",fontWeight:800,fontSize:13,fontFamily:"'Outfit',sans-serif",flexShrink:0,display:"flex",alignItems:"center",gap:5}}>🇮🇳 +91</div>
-                <input value={phone} onChange={e=>setPhone(e.target.value.replace(/\D/g,"").slice(0,10))} placeholder="9876543210" type="tel" style={{flex:1,background:"rgba(255,255,255,.06)",border:`1px solid ${phone.length===10?C.sky+"66":"rgba(255,255,255,.12)"}`,borderRadius:16,padding:"13px 15px",color:"#fff",fontSize:16,fontWeight:700,fontFamily:"'Outfit',sans-serif",outline:"none",transition:"border .2s"}}/>
+                <input value={phone} onChange={e=>setPhone(e.target.value.replace(/\D/g,"").slice(0,10))} placeholder="9876543210" type="tel" style={{flex:1,background:C.card,border:`1px solid ${phone.length===10?C.sky+"66":"rgba(255,255,255,.12)"}`,borderRadius:16,padding:"13px 15px",color:"#fff",fontSize:16,fontWeight:700,fontFamily:"'Outfit',sans-serif",outline:"none",transition:"border .2s"}}/>
               </div>
               <Btn onClick={()=>{if(phone.length===10)nav(S.OTP);}} bg={phone.length===10?C.grad3:"rgba(255,255,255,.06)"} color={phone.length===10?"#fff":"rgba(255,255,255,.25)"}>Send OTP →</Btn>
-              <div style={{textAlign:"center",marginTop:16,fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>By continuing you agree to our <span style={{color:C.sky,cursor:"pointer"}}>Terms</span> & <span style={{color:C.pink,cursor:"pointer"}}>Privacy Policy</span></div>
+              <div style={{textAlign:"center",marginTop:16,fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>By continuing you agree to our <span style={{color:C.sky,cursor:"pointer"}}>Terms</span> & <span style={{color:C.pink,cursor:"pointer"}}>Privacy Policy</span></div>
             </div>
           </div>
           <div style={{padding:"12px 26px 28px",textAlign:"center"}}>
-            <div style={{fontSize:10,color:"rgba(255,255,255,.18)",fontFamily:"'Nunito',sans-serif",letterSpacing:2,fontWeight:700}}>MADE WITH ❤️ IN INDIA</div>
+            <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",letterSpacing:2,fontWeight:700}}>MADE WITH ❤️ IN INDIA</div>
           </div>
         </div>
       </div>
@@ -715,13 +715,13 @@ export default function App() {
   if (screen === S.OTP) return (
     <div style={wrap}><style>{css}</style>
       <div style={ph}>
-        <div style={{...scr,background:C.gradBg}}>
+        <div style={{...scr,background:C.card}}>
           <div style={{flex:1,display:"flex",flexDirection:"column",justifyContent:"center",padding:"28px 26px"}}>
-            <button onClick={()=>nav(S.LOGIN)} style={{alignSelf:"flex-start",background:"rgba(255,255,255,.07)",border:"none",borderRadius:13,padding:"9px 15px",color:"#fff",fontSize:13,cursor:"pointer",fontFamily:"'Outfit',sans-serif",marginBottom:28}}>← Back</button>
+            <button onClick={()=>nav(S.LOGIN)} style={{alignSelf:"flex-start",background:C.card,border:"none",borderRadius:13,padding:"9px 15px",color:"#fff",fontSize:13,cursor:"pointer",fontFamily:"'Outfit',sans-serif",marginBottom:28}}>← Back</button>
             <div style={{textAlign:"center",marginBottom:32}}>
               <div style={{fontSize:60,marginBottom:12}}>📱</div>
               <div style={{fontSize:23,fontWeight:900,color:"#fff"}}>Verify OTP</div>
-              <div style={{fontSize:13,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:8,lineHeight:1.6}}>6-digit code sent to<br/><span style={{color:C.sky,fontWeight:800}}>+91 {phone}</span></div>
+              <div style={{fontSize:13,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:8,lineHeight:1.6}}>6-digit code sent to<br/><span style={{color:C.sky,fontWeight:800}}>+91 {phone}</span></div>
             </div>
             <div style={{display:"flex",gap:9,justifyContent:"center",marginBottom:24}}>
               {otp.map((d,i)=>(
@@ -733,7 +733,7 @@ export default function App() {
               ))}
             </div>
             <Btn onClick={()=>{if(otp.join("").length===6)nav(S.USER_INFO);}} bg={otp.join("").length===6?C.grad1:"rgba(255,255,255,.07)"} color={otp.join("").length===6?C.navy:"rgba(255,255,255,.25)"}>Verify & Continue ✓</Btn>
-            <div style={{textAlign:"center",marginTop:16,fontSize:12,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Didn't get it? <span style={{color:C.pink,cursor:"pointer",fontWeight:800}}>Resend in 30s</span></div>
+            <div style={{textAlign:"center",marginTop:16,fontSize:12,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>Didn't get it? <span style={{color:C.pink,cursor:"pointer",fontWeight:800}}>Resend in 30s</span></div>
           </div>
         </div>
       </div>
@@ -744,17 +744,17 @@ export default function App() {
   if (screen === S.USER_INFO) return (
     <div style={wrap}><style>{css}</style>
       <div style={ph}>
-        <div style={{...scr,background:C.gradBg}}>
+        <div style={{...scr,background:C.card}}>
           <div style={{flex:1,display:"flex",flexDirection:"column",justifyContent:"center",padding:"28px 26px"}}>
             <div style={{textAlign:"center",marginBottom:28}}>
               <div style={{fontSize:56,marginBottom:12}}>👤</div>
               <div style={{fontSize:22,fontWeight:900,color:"#fff"}}>Tell us about you</div>
-              <div style={{fontSize:12,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:7}}>Personalise your coastal experience</div>
+              <div style={{fontSize:12,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:7}}>Personalise your coastal experience</div>
             </div>
             {[{label:"YOUR NAME",ph:"e.g. Aryan Shah",val:uName,set:setUName,type:"text"},{label:"YOUR AGE",ph:"e.g. 25",val:uAge,set:setUAge,type:"number"}].map(f=>(
               <div key={f.label} style={{marginBottom:14}}>
                 <div style={{fontSize:10,color:C.sky,fontFamily:"'Nunito',sans-serif",fontWeight:800,marginBottom:7,letterSpacing:1.5}}>{f.label}</div>
-                <input value={f.val} onChange={e=>f.set(e.target.value)} placeholder={f.ph} type={f.type} style={{width:"100%",background:"rgba(255,255,255,.06)",border:`1px solid ${f.val?C.sky+"55":"rgba(255,255,255,.12)"}`,borderRadius:16,padding:"13px 15px",color:"#fff",fontSize:15,fontFamily:"'Outfit',sans-serif",outline:"none",transition:"border .2s"}}/>
+                <input value={f.val} onChange={e=>f.set(e.target.value)} placeholder={f.ph} type={f.type} style={{width:"100%",background:C.card,border:`1px solid ${f.val?C.sky+"55":"rgba(255,255,255,.12)"}`,borderRadius:16,padding:"13px 15px",color:"#fff",fontSize:15,fontFamily:"'Outfit',sans-serif",outline:"none",transition:"border .2s"}}/>
               </div>
             ))}
             <div style={{background:"rgba(34,211,238,.07)",border:`1px solid ${C.sky}2F`,borderRadius:18,padding:15,marginBottom:22,marginTop:4}}>
@@ -762,7 +762,7 @@ export default function App() {
                 <div style={{fontSize:26,flexShrink:0}}>📍</div>
                 <div style={{flex:1}}>
                   <div style={{fontSize:14,fontWeight:800,color:"#fff"}}>Allow Location Access</div>
-                  <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:4,lineHeight:1.55}}>We'll show exact distances from your location to each beach.</div>
+                  <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:4,lineHeight:1.55}}>We'll show exact distances from your location to each beach.</div>
                   <button onClick={()=>setLocOk(!locOk)} style={{marginTop:10,background:locOk?C.grad1:"rgba(255,255,255,.07)",border:"none",borderRadius:11,padding:"7px 16px",color:locOk?C.navy:"#fff",fontSize:12,fontWeight:800,cursor:"pointer",fontFamily:"'Outfit',sans-serif",transition:"all .2s"}}>{locOk?"✅ Location Granted":"Allow Location"}</button>
                 </div>
               </div>
@@ -779,7 +779,7 @@ export default function App() {
     <div style={wrap}><style>{css}</style>
       <div style={ph}>
         <div style={scr}>
-          <div style={{background:"linear-gradient(180deg,#071828,#0D2035)",flexShrink:0}}>
+          <div style={{background:C.navy,flexShrink:0}}>
             <SB/>
             <div style={{padding:"2px 20px 18px"}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
@@ -798,9 +798,9 @@ export default function App() {
                 <div style={{fontSize:30}}>🌍</div>
                 <div style={{flex:1}}>
                   <div style={{fontSize:12,fontWeight:800,color:"#fff"}}>Expanding Globally 🚀</div>
-                  <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:2}}>Currently: Gujarat · Next: All India → World</div>
+                  <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:2}}>Currently: Gujarat · Next: All India → World</div>
                   <div style={{display:"flex",gap:5,marginTop:6}}>
-                    {[{t:"Gujarat ✅",c:C.sky},{t:"India 🔜",c:C.pink},{t:"World 🌐",c:"#A78BFA"}].map(x=><span key={x.t} style={{background:"rgba(255,255,255,.05)",borderRadius:8,padding:"2px 8px",fontSize:9,color:x.c,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>{x.t}</span>)}
+                    {[{t:"Gujarat ✅",c:C.sky},{t:"India 🔜",c:C.pink},{t:"World 🌐",c:"#A78BFA"}].map(x=><span key={x.t} style={{background:C.card,borderRadius:8,padding:"2px 8px",fontSize:9,color:x.c,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>{x.t}</span>)}
                   </div>
                 </div>
               </div>
@@ -810,7 +810,7 @@ export default function App() {
                   <div key={s.l} style={{background:C.card,borderRadius:18,padding:"13px 8px",textAlign:"center",border:`1px solid ${C.border}`}}>
                     <div style={{fontSize:20,marginBottom:3}}>{s.i}</div>
                     <div style={{fontSize:17,fontWeight:900,background:s.g,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>{s.v}</div>
-                    <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{s.l}</div>
+                    <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{s.l}</div>
                   </div>
                 ))}
               </div>
@@ -832,7 +832,7 @@ export default function App() {
                     </div>
                     <div style={{position:"absolute",bottom:14,right:14,fontSize:13,color:C.gold,fontWeight:800}}>⭐ {b.rating}</div>
                   </div>
-                  <div style={{background:"rgba(255,255,255,.04)",padding:"10px 13px",display:"flex",justifyContent:"space-between"}}>
+                  <div style={{background:C.card,padding:"10px 13px",display:"flex",justifyContent:"space-between"}}>
                     <div style={{fontSize:11,color:C.sky,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>🚗 {b.dist} km away</div>
                     <div style={{fontSize:11,color:C.pink,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>{b.weather}</div>
                   </div>
@@ -848,7 +848,7 @@ export default function App() {
                       <div style={{fontSize:13,fontWeight:800,color:"#fff"}}>{b.name}</div>
                       <div style={{fontSize:12,color:C.gold,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>⭐ {b.rating}</div>
                     </div>
-                    <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:2}}>{b.loc}</div>
+                    <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:2}}>{b.loc}</div>
                     <div style={{fontSize:10,color:C.sky,fontFamily:"'Nunito',sans-serif",marginTop:2}}>🚗 {b.dist} km</div>
                   </div>
                   <span style={{fontSize:18,color:"rgba(255,255,255,.14)"}}>›</span>
@@ -868,13 +868,13 @@ export default function App() {
       {showMap && leafletReady && <MapModal targetBeach={mapBeach} onClose={()=>setShowMap(false)}/>}
       <div style={ph}>
         <div style={scr}>
-          <div style={{background:"linear-gradient(180deg,#071828,#0D2035)",flexShrink:0}}>
+          <div style={{background:C.navy,flexShrink:0}}>
             <SB/>
             <div style={{padding:"2px 20px 18px"}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                 <div>
                   <div style={{fontSize:22,fontWeight:900,color:"#fff"}}>🏖️ Explore Beaches</div>
-                  <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:2}}>Gujarat · 6 destinations · More coming soon</div>
+                  <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:2}}>Gujarat · 6 destinations · More coming soon</div>
                 </div>
                 <button onClick={()=>{setMapBeach(null);setShowMap(true);}} style={{background:`linear-gradient(135deg,#22D3EE22,#06FFF022)`,border:`1px solid ${C.sky}44`,borderRadius:14,padding:"8px 13px",color:C.sky,fontSize:11,cursor:"pointer",fontFamily:"'Outfit',sans-serif",fontWeight:800}}>🗺️ Map</button>
               </div>
@@ -891,7 +891,7 @@ export default function App() {
                     <div style={{position:"absolute",top:10,right:12,background:"rgba(0,0,0,.5)",borderRadius:10,padding:"3px 8px",fontSize:11,color:C.gold,fontFamily:"'Nunito',sans-serif"}}>⭐ {b.rating}</div>
                     <div style={{position:"absolute",bottom:10,left:12}}>
                       <div style={{fontSize:15,fontWeight:800,color:"#fff"}}>{b.name}</div>
-                      <div style={{fontSize:10,color:"rgba(255,255,255,.6)",fontFamily:"'Nunito',sans-serif"}}>📍 {b.loc}</div>
+                      <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>📍 {b.loc}</div>
                     </div>
                   </div>
                   <div style={{padding:"11px 13px"}}>
@@ -901,7 +901,7 @@ export default function App() {
                         {weatherCache[b.id] ? `${weatherCache[b.id].temp}°C ${weatherCache[b.id].icon}` : b.weather}
                       </div>
                     </div>
-                    <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>🌟 {b.famousFor}</div>
+                    <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>🌟 {b.famousFor}</div>
                   </div>
                 </div>
               ))}
@@ -921,7 +921,7 @@ export default function App() {
         <div style={scr}>
           <div style={{height:210,position:"relative",overflow:"hidden",flexShrink:0}}>
             <img src={beach.img} alt={beach.name} style={{width:"100%",height:"100%",objectFit:"cover"}} onError={e=>e.target.style.background=beach.tagC+"44"}/>
-            <div style={{position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(0,0,0,.25) 30%,#060F1E)"}}/>
+            <div style={{position:"absolute",inset:0,background:"linear-gradient(to bottom,transparent 30%,rgba(15,23,42,.6))"}}/>
             <button onClick={()=>nav(S.BEACHES)} style={{position:"absolute",top:48,left:14,background:"rgba(0,0,0,.55)",border:"none",borderRadius:13,padding:"8px 13px",color:"#fff",fontSize:13,cursor:"pointer",fontFamily:"'Outfit',sans-serif",backdropFilter:"blur(12px)"}}>← Back</button>
             <div style={{position:"absolute",top:46,right:13,background:beach.tagC,borderRadius:18,padding:"4px 10px",fontSize:10,color:beach.tagC==="#FBBF24"?C.navy:"#fff",fontFamily:"'Nunito',sans-serif",fontWeight:800}}>{beach.tag}</div>
             <div style={{position:"absolute",bottom:12,left:15}}>
@@ -937,7 +937,7 @@ export default function App() {
                   <div key={x.l} style={{background:C.card,borderRadius:14,padding:"11px 8px",textAlign:"center",border:`1px solid ${C.border}`}}>
                     <div style={{fontSize:18,marginBottom:3}}>{x.i}</div>
                     <div style={{fontSize:10,fontWeight:800,color:"#fff",fontFamily:"'Nunito',sans-serif"}}>{x.v}</div>
-                    <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{x.l}</div>
+                    <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{x.l}</div>
                   </div>
                 ))}
               </div>
@@ -949,11 +949,11 @@ export default function App() {
               </button>
               <div style={{background:C.card,borderRadius:18,padding:13,marginBottom:12,border:`1px solid ${C.border}`}}>
                 <div style={{fontSize:11,fontWeight:800,color:C.sky,marginBottom:6}}>About This Beach</div>
-                <div style={{fontSize:12,color:"rgba(255,255,255,.62)",fontFamily:"'Nunito',sans-serif",lineHeight:1.65}}>{beach.desc}</div>
+                <div style={{fontSize:12,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",lineHeight:1.65}}>{beach.desc}</div>
               </div>
               <div style={{background:C.card,borderRadius:18,padding:13,marginBottom:14,border:`1px solid ${C.border}`}}>
                 <div style={{fontSize:11,fontWeight:800,color:C.pink,marginBottom:7}}>🌟 Famous For</div>
-                <div style={{fontSize:12,color:"rgba(255,255,255,.62)",fontFamily:"'Nunito',sans-serif"}}>{beach.famousFor}</div>
+                <div style={{fontSize:12,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{beach.famousFor}</div>
               </div>
               {/* Nearby Places */}
               {beach.nearby && beach.nearby.length > 0 && (
@@ -975,9 +975,9 @@ export default function App() {
                           </div>
                           <div style={{display:"flex",gap:6,marginBottom:5}}>
                             <span style={{background:`${cc}22`,border:`1px solid ${cc}33`,borderRadius:8,padding:"1px 7px",fontSize:9,color:cc,fontFamily:"'Nunito',sans-serif",fontWeight:800}}>{p.cat}</span>
-                            <span style={{background:"rgba(255,255,255,.06)",borderRadius:8,padding:"1px 7px",fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>📏 {p.dist}</span>
+                            <span style={{background:C.card,borderRadius:8,padding:"1px 7px",fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>📏 {p.dist}</span>
                           </div>
-                          <div style={{fontSize:11,color:"rgba(255,255,255,.55)",fontFamily:"'Nunito',sans-serif",lineHeight:1.5,marginBottom:8}}>{p.desc}</div>
+                          <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",lineHeight:1.5,marginBottom:8}}>{p.desc}</div>
                           <button onClick={()=>{setMapBeach(beach);setShowMap(true);}} style={{background:`${cc}18`,border:`1px solid ${cc}44`,borderRadius:10,padding:"5px 12px",color:cc,fontSize:10,cursor:"pointer",fontFamily:"'Outfit',sans-serif",fontWeight:800}}>🧭 Navigate on Map</button>
                         </div>
                       </div>
@@ -994,7 +994,7 @@ export default function App() {
                     </div>
                   )}
                 </div>
-                <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:10}}>Tap ✚ to add · tap again to remove · tap card for reviews</div>
+                <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginBottom:10}}>Tap ✚ to add · tap again to remove · tap card for reviews</div>
                 {beach.activities.map(a=>{
                   const sel = isActSelected(a);
                   return (
@@ -1034,10 +1034,10 @@ export default function App() {
     <div style={wrap}><style>{css}</style>
       <div style={ph}>
         <div style={scr}>
-          <div style={{background:"linear-gradient(180deg,#071828,#0D2035)",flexShrink:0}}>
+          <div style={{background:C.navy,flexShrink:0}}>
             <SB/>
             <div style={{padding:"2px 20px 18px",display:"flex",alignItems:"center",gap:11}}>
-              <button onClick={()=>nav(S.BEACH)} style={{background:"rgba(255,255,255,.08)",border:"none",borderRadius:12,padding:"8px 12px",color:"#fff",fontSize:14,cursor:"pointer"}}>←</button>
+              <button onClick={()=>nav(S.BEACH)} style={{background:C.card,border:"none",borderRadius:12,padding:"8px 12px",color:"#fff",fontSize:14,cursor:"pointer"}}>←</button>
               <div style={{fontSize:17,fontWeight:800,color:"#fff"}}>{act.icon} {act.name}</div>
             </div>
           </div>
@@ -1048,7 +1048,7 @@ export default function App() {
                   <div key={x.l} style={{background:C.card,borderRadius:16,padding:"13px 12px",border:`1px solid ${C.border}`}}>
                     <div style={{fontSize:22,marginBottom:5}}>{x.i}</div>
                     <div style={{fontSize:13,fontWeight:800,color:"#fff",fontFamily:"'Nunito',sans-serif"}}>{x.v}</div>
-                    <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:1}}>{x.l}</div>
+                    <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:1}}>{x.l}</div>
                   </div>
                 ))}
               </div>
@@ -1060,10 +1060,10 @@ export default function App() {
                       <div style={{width:30,height:30,borderRadius:15,background:C.grad3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13}}>😊</div>
                       <div style={{fontSize:12,fontWeight:800,color:"#fff"}}>{r.u}</div>
                     </div>
-                    <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{r.d}</div>
+                    <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{r.d}</div>
                   </div>
                   <div style={{fontSize:12,color:C.gold}}>{"★".repeat(r.r)}{"☆".repeat(5-r.r)}</div>
-                  <div style={{fontSize:11,color:"rgba(255,255,255,.62)",fontFamily:"'Nunito',sans-serif",marginTop:5,lineHeight:1.5}}>{r.c}</div>
+                  <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:5,lineHeight:1.5}}>{r.c}</div>
                 </div>
               ))}
               <div style={{marginTop:4}}>
@@ -1078,8 +1078,8 @@ export default function App() {
                   </div>
                 ) : (
                   <div>
-                    <div style={{background:"rgba(255,255,255,.04)",borderRadius:16,padding:"13px",textAlign:"center",border:`1px solid ${C.border}`,marginBottom:10}}>
-                      <div style={{fontSize:12,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>✅ Free entry — no booking required</div>
+                    <div style={{background:C.card,borderRadius:16,padding:"13px",textAlign:"center",border:`1px solid ${C.border}`,marginBottom:10}}>
+                      <div style={{fontSize:12,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>✅ Free entry — no booking required</div>
                     </div>
                     <Btn bg={C.grad1} onClick={()=>nav(S.HOTELS)}>
                       {bookedActs.length > 0 ? `🏨 Continue with ${bookedActs.length} Activit${bookedActs.length>1?"ies":"y"} →` : "🏨 Choose a Hotel →"}
@@ -1101,13 +1101,13 @@ export default function App() {
       <div style={wrap}><style>{css}</style>
         <div style={ph}>
           <div style={scr}>
-            <div style={{background:"linear-gradient(180deg,#071828,#0D2035)",flexShrink:0}}>
+            <div style={{background:C.navy,flexShrink:0}}>
               <SB/>
               <div style={{padding:"2px 20px 18px",display:"flex",alignItems:"center",gap:11}}>
-                <button onClick={()=>nav(S.BEACH)} style={{background:"rgba(255,255,255,.08)",border:"none",borderRadius:12,padding:"8px 12px",color:"#fff",fontSize:14,cursor:"pointer"}}>←</button>
+                <button onClick={()=>nav(S.BEACH)} style={{background:C.card,border:"none",borderRadius:12,padding:"8px 12px",color:"#fff",fontSize:14,cursor:"pointer"}}>←</button>
                 <div>
                   <div style={{fontSize:16,fontWeight:800,color:"#fff"}}>Hotels near {beach.name}</div>
-                  <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{list.length} properties available</div>
+                  <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{list.length} properties available</div>
                 </div>
               </div>
             </div>
@@ -1117,16 +1117,16 @@ export default function App() {
                   <div style={{background:`linear-gradient(135deg,${C.pink}15,${C.sky}0A)`,borderRadius:18,padding:"11px 13px",border:`1px solid ${C.pink}30`}}>
                     <div style={{fontSize:10,color:C.pink,fontWeight:800,letterSpacing:1,fontFamily:"'Nunito',sans-serif",marginBottom:8}}>🎯 ACTIVITIES SELECTED ({bookedActs.length})</div>
                     {bookedActs.map(a=>(
-                      <div key={a.name} style={{display:"flex",alignItems:"center",gap:9,marginBottom:6,background:"rgba(255,255,255,.04)",borderRadius:11,padding:"7px 10px"}}>
+                      <div key={a.name} style={{display:"flex",alignItems:"center",gap:9,marginBottom:6,background:C.card,borderRadius:11,padding:"7px 10px"}}>
                         <span style={{fontSize:16}}>{a.icon}</span>
                         <div style={{flex:1}}>
                           <div style={{fontSize:12,fontWeight:800,color:"#fff"}}>{a.name}</div>
-                          <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{a.price} · {a.duration}</div>
+                          <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{a.price} · {a.duration}</div>
                         </div>
                         <button onClick={()=>toggleAct(a)} style={{background:"rgba(255,80,80,.12)",border:"none",borderRadius:8,padding:"3px 8px",color:"#FF7070",fontSize:11,cursor:"pointer",fontWeight:700}}>✕</button>
                       </div>
                     ))}
-                    <div style={{fontSize:10,color:C.cyan,fontFamily:"'Nunito',sans-serif",marginTop:4,fontWeight:700}}>Total activity cost: ₹{totalActPrice.toLocaleString()}</div>
+                    <div style={{fontSize:10,color:C.sky,fontFamily:"'Nunito',sans-serif",marginTop:4,fontWeight:700}}>Total activity cost: ₹{totalActPrice.toLocaleString()}</div>
                   </div>
                 )}
                 {list.map(h=>(
@@ -1143,11 +1143,11 @@ export default function App() {
                         </div>
                         <div style={{textAlign:"right"}}>
                           <div style={{fontSize:17,fontWeight:900,background:C.grad1,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>₹{h.price.toLocaleString()}</div>
-                          <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>per night</div>
+                          <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>per night</div>
                         </div>
                       </div>
                       <div style={{display:"flex",flexWrap:"wrap",gap:5,marginTop:8}}>
-                        {h.amenities.map(a=><span key={a} style={{background:"rgba(255,255,255,.06)",borderRadius:8,padding:"2px 7px",fontSize:10,color:"rgba(255,255,255,.6)",fontFamily:"'Nunito',sans-serif"}}>{a}</span>)}
+                        {h.amenities.map(a=><span key={a} style={{background:C.card,borderRadius:8,padding:"2px 7px",fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{a}</span>)}
                       </div>
                       <div style={{marginTop:9,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                         <div style={{fontSize:11,color:C.sky,fontFamily:"'Nunito',sans-serif",fontWeight:700}}>⭐ {h.rating}</div>
@@ -1174,30 +1174,30 @@ export default function App() {
             🏨
             <button onClick={()=>nav(S.HOTELS)} style={{position:"absolute",top:14,left:13,background:"rgba(0,0,0,.55)",border:"none",borderRadius:12,padding:"7px 13px",color:"#fff",fontSize:13,cursor:"pointer",fontFamily:"'Outfit',sans-serif",backdropFilter:"blur(10px)"}}>← Back</button>
             <div style={{position:"absolute",top:12,right:13,background:C.sky,borderRadius:18,padding:"3px 10px",fontSize:9,color:C.navy,fontFamily:"'Nunito',sans-serif",fontWeight:800}}>{hotel.tag}</div>
-            <div style={{position:"absolute",bottom:0,left:0,right:0,height:55,background:"linear-gradient(transparent,#060F1E)"}}/>
+            <div style={{position:"absolute",bottom:0,left:0,right:0,height:55,background:"linear-gradient(transparent,rgba(15,23,42,.55))"}}/>
           </div>
           <div style={scroll}>
             <div style={{padding:"13px 18px 24px"}}>
               <div style={{fontSize:19,fontWeight:900,color:"#fff"}}>{hotel.name}</div>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:4}}>
-                <div style={{fontSize:13,color:C.gold}}>{"★".repeat(hotel.stars)} <span style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>({hotel.rating})</span></div>
-                <div><span style={{fontSize:19,fontWeight:900,background:C.grad1,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>₹{hotel.price.toLocaleString()}</span><span style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>/night</span></div>
+                <div style={{fontSize:13,color:C.gold}}>{"★".repeat(hotel.stars)} <span style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>({hotel.rating})</span></div>
+                <div><span style={{fontSize:19,fontWeight:900,background:C.grad1,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>₹{hotel.price.toLocaleString()}</span><span style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>/night</span></div>
               </div>
               <div style={{background:C.card,borderRadius:18,padding:14,marginTop:13,border:`1px solid ${C.border}`}}>
                 <div style={{fontSize:11,fontWeight:800,color:C.sky,marginBottom:11}}>📅 SELECT DATES, TIMES & GUESTS</div>
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:9}}>
                   {[{l:"Check-in Date",v:checkIn,set:setCheckIn,req:true},{l:"Check-out Date",v:checkOut,set:setCheckOut,req:true}].map(f=>(
                     <div key={f.l}>
-                      <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:5,letterSpacing:1}}>{f.l.toUpperCase()} <span style={{color:"#FF6B6B"}}>*</span></div>
-                      <input type="date" value={f.v} onChange={e=>{f.set(e.target.value);setDateErr("");}} style={{width:"100%",background:"rgba(255,255,255,.06)",border:`1px solid ${f.v?"#22D3EE66":C.border}`,borderRadius:12,padding:"9px",color:"#fff",fontSize:12,fontFamily:"'Outfit',sans-serif",outline:"none"}}/>
+                      <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginBottom:5,letterSpacing:1}}>{f.l.toUpperCase()} <span style={{color:"#FF6B6B"}}>*</span></div>
+                      <input type="date" value={f.v} onChange={e=>{f.set(e.target.value);setDateErr("");}} style={{width:"100%",background:C.card,border:`1px solid ${f.v?"#22D3EE66":C.border}`,borderRadius:12,padding:"9px",color:"#fff",fontSize:12,fontFamily:"'Outfit',sans-serif",outline:"none"}}/>
                     </div>
                   ))}
                 </div>
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:12}}>
                   {[{l:"Check-in Time",v:checkInTime,set:setCheckInTime},{l:"Check-out Time",v:checkOutTime,set:setCheckOutTime}].map(f=>(
                     <div key={f.l}>
-                      <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:5,letterSpacing:1}}>{f.l.toUpperCase()} <span style={{color:"#FF6B6B"}}>*</span></div>
-                      <input type="time" value={f.v} onChange={e=>{f.set(e.target.value);setDateErr("");}} style={{width:"100%",background:"rgba(255,255,255,.06)",border:`1px solid ${f.v?"#22D3EE66":C.border}`,borderRadius:12,padding:"9px",color:"#fff",fontSize:12,fontFamily:"'Outfit',sans-serif",outline:"none",colorScheme:"dark"}}/>
+                      <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginBottom:5,letterSpacing:1}}>{f.l.toUpperCase()} <span style={{color:"#FF6B6B"}}>*</span></div>
+                      <input type="time" value={f.v} onChange={e=>{f.set(e.target.value);setDateErr("");}} style={{width:"100%",background:C.card,border:`1px solid ${f.v?"#22D3EE66":C.border}`,borderRadius:12,padding:"9px",color:"#fff",fontSize:12,fontFamily:"'Outfit',sans-serif",outline:"none",colorScheme:"dark"}}/>
                     </div>
                   ))}
                 </div>
@@ -1209,39 +1209,39 @@ export default function App() {
                 )}
                 <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap"}}>
                   {/* Guests stepper */}
-                  <div style={{display:"flex",alignItems:"center",gap:7,background:"rgba(255,255,255,.04)",borderRadius:12,padding:"7px 11px",border:`1px solid ${C.border}`}}>
-                    <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginRight:2}}>👤 Guests:</div>
-                    <button onClick={()=>{const g=Math.max(1,guests-1);setGuests(g);setRooms(Math.ceil(g/3));}} style={{width:28,height:28,borderRadius:8,background:"rgba(255,255,255,.07)",border:"none",color:"#fff",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>−</button>
+                  <div style={{display:"flex",alignItems:"center",gap:7,background:C.card,borderRadius:12,padding:"7px 11px",border:`1px solid ${C.border}`}}>
+                    <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginRight:2}}>👤 Guests:</div>
+                    <button onClick={()=>{const g=Math.max(1,guests-1);setGuests(g);setRooms(Math.ceil(g/3));}} style={{width:28,height:28,borderRadius:8,background:C.card,border:"none",color:"#fff",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>−</button>
                     <div style={{fontSize:15,fontWeight:800,color:"#fff",minWidth:20,textAlign:"center"}}>{guests}</div>
-                    <button onClick={()=>{const g=guests+1;setGuests(g);setRooms(Math.ceil(g/3));}} style={{width:28,height:28,borderRadius:8,background:"rgba(255,255,255,.07)",border:"none",color:"#fff",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>+</button>
+                    <button onClick={()=>{const g=guests+1;setGuests(g);setRooms(Math.ceil(g/3));}} style={{width:28,height:28,borderRadius:8,background:C.card,border:"none",color:"#fff",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>+</button>
                   </div>
                   {/* Rooms stepper */}
-                  <div style={{display:"flex",alignItems:"center",gap:7,background:"rgba(255,255,255,.04)",borderRadius:12,padding:"7px 11px",border:`1px solid ${C.border}`}}>
-                    <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginRight:2}}>🛏️ Rooms:</div>
-                    <button onClick={()=>{const minRooms=Math.ceil(guests/3);if(rooms>minRooms)setRooms(rooms-1);}} style={{width:28,height:28,borderRadius:8,background:"rgba(255,255,255,.07)",border:"none",color:"#fff",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>−</button>
+                  <div style={{display:"flex",alignItems:"center",gap:7,background:C.card,borderRadius:12,padding:"7px 11px",border:`1px solid ${C.border}`}}>
+                    <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginRight:2}}>🛏️ Rooms:</div>
+                    <button onClick={()=>{const minRooms=Math.ceil(guests/3);if(rooms>minRooms)setRooms(rooms-1);}} style={{width:28,height:28,borderRadius:8,background:C.card,border:"none",color:"#fff",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>−</button>
                     <div style={{fontSize:15,fontWeight:800,color:"#fff",minWidth:20,textAlign:"center"}}>{rooms}</div>
-                    <button onClick={()=>setRooms(rooms+1)} style={{width:28,height:28,borderRadius:8,background:"rgba(255,255,255,.07)",border:"none",color:"#fff",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>+</button>
+                    <button onClick={()=>setRooms(rooms+1)} style={{width:28,height:28,borderRadius:8,background:C.card,border:"none",color:"#fff",fontSize:15,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>+</button>
                   </div>
-                  <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",width:"100%",marginTop:2}}>ℹ️ Max 3 guests per room · {nights} night{nights!==1?"s":""}</div>
+                  <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",width:"100%",marginTop:2}}>ℹ️ Max 3 guests per room · {nights} night{nights!==1?"s":""}</div>
                 </div>
               </div>
               <div style={{background:"rgba(34,211,238,.06)",borderRadius:18,padding:13,marginTop:11,border:`1px solid ${C.sky}22`}}>
-                <div style={{fontSize:11,fontWeight:800,color:C.cyan,marginBottom:9}}>💰 PRICE SUMMARY</div>
+                <div style={{fontSize:11,fontWeight:800,color:C.sky,marginBottom:9}}>💰 PRICE SUMMARY</div>
                 <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
-                  <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",flex:1,paddingRight:8}}>Hotel: ₹{hotel.price.toLocaleString()} × {nights} nights × {rooms} room{rooms!==1?"s":""}</div>
+                  <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",flex:1,paddingRight:8}}>Hotel: ₹{hotel.price.toLocaleString()} × {nights} nights × {rooms} room{rooms!==1?"s":""}</div>
                   <div style={{fontSize:11,color:"rgba(255,255,255,.75)",fontFamily:"'Nunito',sans-serif",flexShrink:0}}>₹{total.toLocaleString()}</div>
                 </div>
                 {bookedActs.length > 0 && bookedActs.map(a => {
                   const ap = parseActPrice(a);
                   return (
                     <div key={a.name} style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
-                      <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",flex:1,paddingRight:8}}>{a.icon} {a.name} ({guests} guests)</div>
+                      <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",flex:1,paddingRight:8}}>{a.icon} {a.name} ({guests} guests)</div>
                       <div style={{fontSize:11,color:"rgba(255,255,255,.75)",fontFamily:"'Nunito',sans-serif",flexShrink:0}}>{ap > 0 ? `₹${ap.toLocaleString()}` : "Free ✓"}</div>
                     </div>
                   );
                 })}
                 <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
-                  <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Taxes & Fees (12% on hotel)</div>
+                  <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>Taxes & Fees (12% on hotel)</div>
                   <div style={{fontSize:11,color:"rgba(255,255,255,.75)",fontFamily:"'Nunito',sans-serif"}}>₹{Math.round(total*.12).toLocaleString()}</div>
                 </div>
                 <div style={{borderTop:`1px solid rgba(255,255,255,.07)`,paddingTop:8,display:"flex",justifyContent:"space-between"}}>
@@ -1269,10 +1269,10 @@ export default function App() {
       <div style={wrap}><style>{css}</style>
         <div style={ph}>
           <div style={scr}>
-            <div style={{background:"linear-gradient(180deg,#071828,#0D2035)",flexShrink:0}}>
+            <div style={{background:C.navy,flexShrink:0}}>
               <SB/>
               <div style={{padding:"2px 20px 18px",display:"flex",alignItems:"center",gap:11}}>
-                <button onClick={()=>nav(S.HOTEL)} style={{background:"rgba(255,255,255,.08)",border:"none",borderRadius:12,padding:"8px 12px",color:"#fff",fontSize:14,cursor:"pointer"}}>←</button>
+                <button onClick={()=>nav(S.HOTEL)} style={{background:C.card,border:"none",borderRadius:12,padding:"8px 12px",color:"#fff",fontSize:14,cursor:"pointer"}}>←</button>
                 <div style={{fontSize:17,fontWeight:800,color:"#fff"}}>🔒 Secure Payment</div>
               </div>
             </div>
@@ -1281,7 +1281,7 @@ export default function App() {
                 <div style={{background:C.card,borderRadius:20,padding:13,marginBottom:13,border:`1px solid ${C.border}`}}>
                   <div style={{fontSize:10,color:C.sky,fontWeight:800,marginBottom:7,letterSpacing:1}}>BOOKING SUMMARY</div>
                   <div style={{fontSize:14,fontWeight:800,color:"#fff"}}>{hotel?.name}</div>
-                  <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:3}}>📍 Near {beach?.name} · {checkIn} {checkInTime} → {checkOut} {checkOutTime} · {nights} nights · {guests} guests · {rooms} room{rooms!==1?"s":""}</div>
+                  <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:3}}>📍 Near {beach?.name} · {checkIn} {checkInTime} → {checkOut} {checkOutTime} · {nights} nights · {guests} guests · {rooms} room{rooms!==1?"s":""}</div>
                   {bookedActs.length > 0 && (
                     <div style={{marginTop:8}}>
                       {bookedActs.map(a => {
@@ -1291,7 +1291,7 @@ export default function App() {
                             <span style={{fontSize:14}}>{a.icon}</span>
                             <div style={{flex:1}}>
                               <div style={{fontSize:11,fontWeight:800,color:"#fff"}}>{a.name}</div>
-                              <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{a.price} · {guests} guests</div>
+                              <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{a.price} · {guests} guests</div>
                             </div>
                             <div style={{fontSize:11,fontWeight:800,color:ap>0?C.pink:C.sky}}>{ap>0?`₹${ap.toLocaleString()}`:"Free ✓"}</div>
                           </div>
@@ -1300,17 +1300,17 @@ export default function App() {
                     </div>
                   )}
                   <div style={{display:"flex",justifyContent:"space-between",borderTop:`1px solid rgba(255,255,255,.07)`,paddingTop:9,marginTop:9}}>
-                    <div style={{fontSize:12,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Total Amount</div>
+                    <div style={{fontSize:12,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>Total Amount</div>
                     <div style={{fontSize:19,fontWeight:900,background:C.grad1,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>₹{grand.toLocaleString()}</div>
                   </div>
                 </div>
-                <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:9,letterSpacing:1}}>SELECT PAYMENT METHOD</div>
+                <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginBottom:9,letterSpacing:1}}>SELECT PAYMENT METHOD</div>
                 {methods.map(m=>(
                   <div key={m.id} onClick={()=>setPay(m.id)} style={{background:pay===m.id?"rgba(34,211,238,.1)":C.card,borderRadius:16,padding:"12px 13px",marginBottom:8,display:"flex",alignItems:"center",gap:12,cursor:"pointer",border:`1.5px solid ${pay===m.id?C.sky:C.border}`,transition:"all .2s"}}>
                     <div style={{fontSize:22}}>{m.icon}</div>
                     <div style={{flex:1}}>
                       <div style={{fontSize:13,fontWeight:700,color:"#fff",fontFamily:"'Nunito',sans-serif"}}>{m.label}</div>
-                      <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{m.sub}</div>
+                      <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{m.sub}</div>
                     </div>
                     <div style={{width:19,height:19,borderRadius:10,border:`2px solid ${pay===m.id?C.sky:"rgba(255,255,255,.2)"}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
                       {pay===m.id && <div style={{width:9,height:9,borderRadius:5,background:C.sky}}/>}
@@ -1319,7 +1319,7 @@ export default function App() {
                 ))}
                 <div style={{background:"rgba(34,211,238,.05)",borderRadius:13,padding:"9px 12px",marginTop:6,marginBottom:13,display:"flex",gap:8,alignItems:"center",border:`1px solid ${C.sky}1A`}}>
                   <span style={{fontSize:13}}>🔒</span>
-                  <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>256-bit SSL encrypted · 100% secure payment</div>
+                  <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>256-bit SSL encrypted · 100% secure payment</div>
                 </div>
                 <Btn onClick={()=>nav(S.SUCCESS)} bg={C.grad1}>🔒 Pay ₹{grand.toLocaleString()} Now</Btn>
               </div>
@@ -1334,11 +1334,11 @@ export default function App() {
   if (screen === S.SUCCESS) return (
     <div style={wrap}><style>{css}</style>
       <div style={ph}>
-        <div style={{...scr,background:C.gradBg}}>
+        <div style={{...scr,background:C.card}}>
           <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:26}}>
             <div style={{fontSize:84,animation:"pop .6s ease forwards",marginBottom:8}}>🎉</div>
             <div style={{fontSize:23,fontWeight:900,color:"#fff",textAlign:"center",animation:"fadeUp .5s ease .2s both"}}>Booking Confirmed!</div>
-            <div style={{fontSize:12,color:C.sub,fontFamily:"'Nunito',sans-serif",textAlign:"center",marginTop:7,lineHeight:1.65,animation:"fadeUp .5s ease .3s both"}}>Your stay at <span style={{color:C.sky,fontWeight:800}}>{hotel?.name}</span><br/>near {beach?.name} is all set! 🌊</div>
+            <div style={{fontSize:12,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",textAlign:"center",marginTop:7,lineHeight:1.65,animation:"fadeUp .5s ease .3s both"}}>Your stay at <span style={{color:C.sky,fontWeight:800}}>{hotel?.name}</span><br/>near {beach?.name} is all set! 🌊</div>
             <div style={{background:C.card,borderRadius:22,padding:16,marginTop:18,width:"100%",border:`1px solid ${C.border}`,animation:"fadeUp .5s ease .4s both"}}>
               {[
                 {l:"Booking ID",v:"#GUJ"+Math.floor(Math.random()*90000+10000)},
@@ -1355,7 +1355,7 @@ export default function App() {
                 {l:"Payment Via",v:pay.toUpperCase()},
               ].map(r=>(
                 <div key={r.l} style={{display:"flex",justifyContent:"space-between",marginBottom:7,paddingBottom:7,borderBottom:"1px solid rgba(255,255,255,.05)"}}>
-                  <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{r.l}</div>
+                  <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{r.l}</div>
                   <div style={{fontSize:11,color:"#fff",fontWeight:700,fontFamily:"'Nunito',sans-serif",maxWidth:160,textAlign:"right"}}>{r.v}</div>
                 </div>
               ))}
@@ -1373,12 +1373,12 @@ export default function App() {
       {showMap && leafletReady && <MapModal targetBeach={mapBeach} onClose={()=>setShowMap(false)}/>}
       <div style={ph}>
         <div style={scr}>
-          <div style={{background:"linear-gradient(180deg,#071828,#0D2035)",flexShrink:0}}>
+          <div style={{background:C.navy,flexShrink:0}}>
             <SB/>
             <div style={{padding:"2px 20px 18px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <div>
                 <div style={{fontSize:22,fontWeight:900,color:"#fff"}}>📅 Trip Planner</div>
-                <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:2}}>Build your coastal itinerary</div>
+                <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:2}}>Build your coastal itinerary</div>
               </div>
               <button onClick={()=>{setMapBeach(null);setShowMap(true);}} style={{background:`linear-gradient(135deg,#22D3EE22,#06FFF022)`,border:`1px solid ${C.sky}44`,borderRadius:14,padding:"8px 12px",color:C.sky,fontSize:11,cursor:"pointer",fontFamily:"'Outfit',sans-serif",fontWeight:800}}>🗺️ Map</button>
             </div>
@@ -1395,18 +1395,18 @@ export default function App() {
                       </div>
                       <div style={{flex:1}}>
                         <div style={{fontSize:12,fontWeight:800,color:"#fff"}}>Day {i+1}: {d.b.name}</div>
-                        <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>🚗 {d.b.dist} km</div>
+                        <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>🚗 {d.b.dist} km</div>
                       </div>
                       <button onClick={()=>setPlan(plan.filter(x=>x.id!==d.id))} style={{background:"rgba(255,80,80,.14)",border:"none",borderRadius:9,padding:"5px 9px",color:"#FF7070",fontSize:12,cursor:"pointer"}}>✕</button>
                     </div>
                   ))}
                   <div style={{background:"rgba(34,211,238,.06)",borderRadius:13,padding:"10px 13px",border:`1px solid ${C.sky}1F`,display:"flex",justifyContent:"space-between"}}>
-                    <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>Total duration</div>
+                    <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>Total duration</div>
                     <div style={{fontSize:12,color:C.sky,fontWeight:800}}>{plan.length} Day{plan.length!==1?"s":""}</div>
                   </div>
                 </div>
               )}
-              <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginBottom:9,letterSpacing:1}}>ADD BEACHES TO YOUR PLAN</div>
+              <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginBottom:9,letterSpacing:1}}>ADD BEACHES TO YOUR PLAN</div>
               {beaches.map(b=>(
                 <div key={b.id} style={{background:C.card,borderRadius:16,padding:"10px 12px",marginBottom:8,display:"flex",alignItems:"center",gap:10,border:`1px solid ${C.border}`}}>
                   <div style={{width:40,height:40,borderRadius:12,overflow:"hidden",flexShrink:0}}>
@@ -1414,7 +1414,7 @@ export default function App() {
                   </div>
                   <div style={{flex:1}}>
                     <div style={{fontSize:13,fontWeight:800,color:"#fff"}}>{b.name}</div>
-                    <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>🚗 {b.dist} km</div>
+                    <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>🚗 {b.dist} km</div>
                   </div>
                   <button onClick={()=>setPlan([...plan,{b,id:Date.now()+Math.random()}])} style={{background:b.tagC+"22",border:`1px solid ${b.tagC}44`,borderRadius:11,padding:"6px 12px",color:"#fff",fontSize:11,cursor:"pointer",fontFamily:"'Outfit',sans-serif",fontWeight:800}}>+ Add</button>
                 </div>
@@ -1432,11 +1432,11 @@ export default function App() {
     <div style={wrap}><style>{css}</style>
       <div style={ph}>
         <div style={scr}>
-          <div style={{background:"linear-gradient(180deg,#071828,#0D2035)",flexShrink:0}}>
+          <div style={{background:C.navy,flexShrink:0}}>
             <SB/>
             <div style={{padding:"2px 20px 18px"}}>
               <div style={{fontSize:22,fontWeight:900,color:"#fff"}}>💬 Customer Support</div>
-              <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:2}}>We're here to help — 24/7</div>
+              <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:2}}>We're here to help — 24/7</div>
             </div>
           </div>
           <div style={scroll}>
@@ -1445,7 +1445,7 @@ export default function App() {
                 <div style={{fontSize:44,marginBottom:10}}>📧</div>
                 <div style={{fontSize:14,fontWeight:800,color:"#fff",marginBottom:5}}>Email Us Directly</div>
                 <div style={{fontSize:12,fontWeight:800,background:C.grad1,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",marginBottom:7}}>monarch01work@gmail.com</div>
-                <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",lineHeight:1.6}}>Send queries, feedback or issues.<br/>We reply within 24 hours.</div>
+                <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",lineHeight:1.6}}>Send queries, feedback or issues.<br/>We reply within 24 hours.</div>
                 <button style={{marginTop:12,background:C.grad1,border:"none",borderRadius:14,padding:"10px 24px",color:C.navy,fontSize:13,fontWeight:800,cursor:"pointer",fontFamily:"'Outfit',sans-serif"}}>📤 Send Email Now</button>
               </div>
               {[
@@ -1460,13 +1460,13 @@ export default function App() {
                   <div style={{flex:1}}>
                     <div style={{fontSize:13,fontWeight:800,color:"#fff"}}>{x.t}</div>
                     <div style={{fontSize:11,color:x.c,fontFamily:"'Nunito',sans-serif",fontWeight:700,marginTop:1}}>{x.s}</div>
-                    <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:1}}>{x.tag}</div>
+                    <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:1}}>{x.tag}</div>
                   </div>
                   <span style={{fontSize:17,color:"rgba(255,255,255,.14)"}}>›</span>
                 </div>
               ))}
               <div style={{background:C.card,borderRadius:16,padding:14,marginTop:4,border:`1px solid ${C.border}`,textAlign:"center"}}>
-                <div style={{fontSize:11,color:C.sub,fontFamily:"'Nunito',sans-serif",lineHeight:1.8}}>
+                <div style={{fontSize:11,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",lineHeight:1.8}}>
                   Avg response time: <span style={{color:C.sky,fontWeight:800}}>under 2 hours</span><br/>
                   Customer satisfaction: <span style={{color:C.gold,fontWeight:800}}>4.9 / 5 ⭐</span><br/>
                   <span style={{color:C.pink,fontWeight:700}}>monarch01work@gmail.com</span>
@@ -1485,13 +1485,13 @@ export default function App() {
     <div style={wrap}><style>{css}</style>
       <div style={ph}>
         <div style={scr}>
-          <div style={{background:"linear-gradient(180deg,#071828,#0D2035)",flexShrink:0}}>
+          <div style={{background:C.navy,flexShrink:0}}>
             <SB/>
             <div style={{padding:"2px 20px 22px",textAlign:"center"}}>
               <div style={{width:78,height:78,borderRadius:39,background:C.grad3,display:"flex",alignItems:"center",justifyContent:"center",fontSize:34,margin:"0 auto 10px",boxShadow:`0 0 0 3px ${C.navy}, 0 0 0 5px ${C.sky}44`}}>😎</div>
               <div style={{fontSize:20,fontWeight:900,color:"#fff"}}>{user?.name||"Explorer"}</div>
               <div style={{fontSize:11,color:C.sky,fontFamily:"'Nunito',sans-serif",marginTop:3,fontWeight:700}}>Age {user?.age||"–"} · +91 {user?.phone||""}</div>
-              {user?.loc && <div style={{fontSize:10,color:C.cyan,fontFamily:"'Nunito',sans-serif",marginTop:2}}>📍 Location access granted</div>}
+              {user?.loc && <div style={{fontSize:10,color:C.sky,fontFamily:"'Nunito',sans-serif",marginTop:2}}>📍 Location access granted</div>}
             </div>
           </div>
           <div style={scroll}>
@@ -1501,7 +1501,7 @@ export default function App() {
                   <div key={s.l} style={{background:C.card,borderRadius:16,padding:"12px 8px",textAlign:"center",border:`1px solid ${C.border}`}}>
                     <div style={{fontSize:20,marginBottom:3}}>{s.i}</div>
                     <div style={{fontSize:18,fontWeight:900,background:C.grad1,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>{s.v}</div>
-                    <div style={{fontSize:9,color:C.sub,fontFamily:"'Nunito',sans-serif",lineHeight:1.3,whiteSpace:"pre-line"}}>{s.l}</div>
+                    <div style={{fontSize:9,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",lineHeight:1.3,whiteSpace:"pre-line"}}>{s.l}</div>
                   </div>
                 ))}
               </div>
@@ -1519,7 +1519,7 @@ export default function App() {
                   <div style={{fontSize:20}}>{x.i}</div>
                   <div style={{flex:1}}>
                     <div style={{fontSize:13,fontWeight:700,color:"#fff",fontFamily:"'Nunito',sans-serif"}}>{x.t}</div>
-                    <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif"}}>{x.s}</div>
+                    <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif"}}>{x.s}</div>
                   </div>
                   <span style={{fontSize:17,color:"rgba(255,255,255,.13)"}}>›</span>
                 </div>
@@ -1528,7 +1528,7 @@ export default function App() {
               <div style={{marginTop:14,padding:"18px 16px",background:`linear-gradient(135deg,${C.sky}0F,${C.pink}0F)`,borderRadius:22,border:`1px solid rgba(255,255,255,.07)`,textAlign:"center"}}>
                 <div style={{fontSize:28,marginBottom:7}}>🇮🇳</div>
                 <div style={{fontSize:15,fontWeight:900,background:C.grad3,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",letterSpacing:1}}>MADE WITH ❤️ IN INDIA</div>
-                <div style={{fontSize:10,color:C.sub,fontFamily:"'Nunito',sans-serif",marginTop:5,lineHeight:1.7}}>Coastal Management & Planner Platform · v2.0<br/><span style={{color:C.sky}}>Gujarat → All India → World 🌍</span></div>
+                <div style={{fontSize:10,color:"rgba(255,255,255,.52)",fontFamily:"'Nunito',sans-serif",marginTop:5,lineHeight:1.7}}>Coastal Management & Planner Platform · v2.0<br/><span style={{color:C.sky}}>Gujarat → All India → World 🌍</span></div>
               </div>
             </div>
           </div>
